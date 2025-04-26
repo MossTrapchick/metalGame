@@ -76,7 +76,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""f1ba0d36-48eb-4cd5-b651-1c94a6531f70"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -91,9 +91,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SelectMenuInstrument"",
+                    ""name"": ""TopMenuNavigationDrum"",
                     ""type"": ""Button"",
-                    ""id"": ""84391fa0-3851-460a-952e-151015fd7239"",
+                    ""id"": ""94c70305-8a8e-4004-b88b-f5c27a966938"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TopMenuNavigationGitar"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb86d309-7f98-4eca-ab18-3a61af83d454"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -367,6 +376,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""90f49455-250d-4cf7-a8f0-1f2b4c1e04a0"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TopMenuNavigationDrum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cce2c54-c4c6-4de3-8d78-4b7910978c8a"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TopMenuNavigationGitar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""eb40bb66-4559-4dfa-9a2f-820438abb426"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -439,28 +470,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""75cbc573-09cd-479f-a94d-54d2b01c5c1d"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectMenuInstrument"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""92374f75-c371-4b4e-83fe-addae0336b19"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectMenuInstrument"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1055,7 +1064,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        m_Player_SelectMenuInstrument = m_Player.FindAction("SelectMenuInstrument", throwIfNotFound: true);
+        m_Player_TopMenuNavigationDrum = m_Player.FindAction("TopMenuNavigationDrum", throwIfNotFound: true);
+        m_Player_TopMenuNavigationGitar = m_Player.FindAction("TopMenuNavigationGitar", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1142,7 +1152,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
-    private readonly InputAction m_Player_SelectMenuInstrument;
+    private readonly InputAction m_Player_TopMenuNavigationDrum;
+    private readonly InputAction m_Player_TopMenuNavigationGitar;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1154,7 +1165,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
-        public InputAction @SelectMenuInstrument => m_Wrapper.m_Player_SelectMenuInstrument;
+        public InputAction @TopMenuNavigationDrum => m_Wrapper.m_Player_TopMenuNavigationDrum;
+        public InputAction @TopMenuNavigationGitar => m_Wrapper.m_Player_TopMenuNavigationGitar;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1185,9 +1197,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
-            @SelectMenuInstrument.started += instance.OnSelectMenuInstrument;
-            @SelectMenuInstrument.performed += instance.OnSelectMenuInstrument;
-            @SelectMenuInstrument.canceled += instance.OnSelectMenuInstrument;
+            @TopMenuNavigationDrum.started += instance.OnTopMenuNavigationDrum;
+            @TopMenuNavigationDrum.performed += instance.OnTopMenuNavigationDrum;
+            @TopMenuNavigationDrum.canceled += instance.OnTopMenuNavigationDrum;
+            @TopMenuNavigationGitar.started += instance.OnTopMenuNavigationGitar;
+            @TopMenuNavigationGitar.performed += instance.OnTopMenuNavigationGitar;
+            @TopMenuNavigationGitar.canceled += instance.OnTopMenuNavigationGitar;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1213,9 +1228,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
-            @SelectMenuInstrument.started -= instance.OnSelectMenuInstrument;
-            @SelectMenuInstrument.performed -= instance.OnSelectMenuInstrument;
-            @SelectMenuInstrument.canceled -= instance.OnSelectMenuInstrument;
+            @TopMenuNavigationDrum.started -= instance.OnTopMenuNavigationDrum;
+            @TopMenuNavigationDrum.performed -= instance.OnTopMenuNavigationDrum;
+            @TopMenuNavigationDrum.canceled -= instance.OnTopMenuNavigationDrum;
+            @TopMenuNavigationGitar.started -= instance.OnTopMenuNavigationGitar;
+            @TopMenuNavigationGitar.performed -= instance.OnTopMenuNavigationGitar;
+            @TopMenuNavigationGitar.canceled -= instance.OnTopMenuNavigationGitar;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1405,7 +1423,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
-        void OnSelectMenuInstrument(InputAction.CallbackContext context);
+        void OnTopMenuNavigationDrum(InputAction.CallbackContext context);
+        void OnTopMenuNavigationGitar(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

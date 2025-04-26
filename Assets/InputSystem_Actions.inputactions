@@ -54,7 +54,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -69,9 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectMenuInstrument",
+                    "name": "TopMenuNavigationDrum",
                     "type": "Button",
-                    "id": "84391fa0-3851-460a-952e-151015fd7239",
+                    "id": "94c70305-8a8e-4004-b88b-f5c27a966938",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TopMenuNavigationGitar",
+                    "type": "Button",
+                    "id": "fb86d309-7f98-4eca-ab18-3a61af83d454",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -345,6 +354,28 @@
                 },
                 {
                     "name": "",
+                    "id": "90f49455-250d-4cf7-a8f0-1f2b4c1e04a0",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TopMenuNavigationDrum",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0cce2c54-c4c6-4de3-8d78-4b7910978c8a",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TopMenuNavigationGitar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -417,28 +448,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "75cbc573-09cd-479f-a94d-54d2b01c5c1d",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectMenuInstrument",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "92374f75-c371-4b4e-83fe-addae0336b19",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectMenuInstrument",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
