@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class QTEKey : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class QTEKey : MonoBehaviour
 
     public UnityEvent OnSuccessedQTE;
     public UnityEvent OnFailedQTE;
-
 
     private void Awake()
     {
@@ -101,6 +99,5 @@ public class QTEKey : MonoBehaviour
     }
 
     // private void AddPressedKey() => _QTEManager.IncreasePressedKeysCount();
-
     // private void AddMissedKey() => _QTEManager.IncreaseMissedKeysCount();
 }
