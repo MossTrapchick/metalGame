@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class DancerNPC : MonoBehaviour
 {
-    public int moveSpeed = 10;
+    public int moveSpeed = 5;
+    public SpriteRenderer colorIndicator;
+    
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
     
     private Coroutine movingCoroutine;
     private int rand;
@@ -17,14 +17,20 @@ public class DancerNPC : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        colorIndicator.color = new Color(colorIndicator.color.r, colorIndicator.color.g, colorIndicator.color.b, 0);
+
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.Log(curPlayer?.name);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        other.TryGetComponent(out curPlayer);
+        if (other.TryGetComponent(out curPlayer))
+            colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
     }
 
     private void OnTriggerExit2D(Collider2D other)

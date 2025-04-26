@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+    public Color playerColor;
     
     private Vector2 moveDirection = Vector2.zero;
     private InputSystem_Actions inputSystemAction;
