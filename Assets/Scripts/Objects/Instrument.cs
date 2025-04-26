@@ -6,14 +6,12 @@ using static RoadController;
 public class Instrument : MonoBehaviour
 {
 
-    /*[SerializeField] instrumentsofviolenceagainstmusic Gitar;
-    [SerializeField] instrumentsofviolenceagainstmusic Drum;*/
-
+ 
     public float baseCoversionSpeed;
 
     
 
-    //[SerializeField]  GameObject Instruments;
+
 
 
     public Color playerColor;
@@ -41,9 +39,8 @@ public class Instrument : MonoBehaviour
 
     private void Start()
     {
-        
+        ChageInstrument(0);
         radius.color = playerColor;
-        isGitar();
     }
 
 
@@ -73,19 +70,5 @@ public class Instrument : MonoBehaviour
     }
 
 
-    public void isDrum()
-    {
-        
-    }
-
-
-    public void isGitar()
-    {
-       
-    }
-
-    
-    
-   
 
 }
