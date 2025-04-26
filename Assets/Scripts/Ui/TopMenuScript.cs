@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -6,6 +7,7 @@ public class TopMenuScript : MonoBehaviour
 {
     private InputSystem_Actions inputSystemAction;
     private Instrument ins;
+    Instrument.Instr curent;
     private void Awake()
     {
         inputSystemAction=new InputSystem_Actions();
@@ -19,10 +21,13 @@ public class TopMenuScript : MonoBehaviour
     {
         if (context.control == inputSystemAction.Player.TopMenu.controls[1])
         {
-            ins.isDrum();
-        }else if (context.control == inputSystemAction.Player.TopMenu.controls[2])
+            curent = Instrument.Instr.Drums;
+            ins.ToggleInstrument(curent);
+        }
+        else if (context.control == inputSystemAction.Player.TopMenu.controls[2])
         {
-            ins.isGitar();
+            curent = Instrument.Instr.Guitar;
+            ins.ToggleInstrument(curent);
         }
 
 

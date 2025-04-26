@@ -82,7 +82,7 @@ public class DancerNPC : MonoBehaviour
 
         if (ConversionValue < maxConversionValSize) {
 
-            ConversionValue += curPlayer.baseCoversionSpeed * 0.1f;   
+            ConversionValue += curPlayer.curentCoversionSpeed * 0.1f;   
         }
 
         colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);

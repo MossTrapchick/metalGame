@@ -646,9 +646,9 @@ GameObject:
   - component: {fileID: 653822377}
   - component: {fileID: 653822376}
   - component: {fileID: 653822375}
-  - component: {fileID: 653822374}
   - component: {fileID: 653822373}
-  - component: {fileID: 653822372}
+  - component: {fileID: 653822380}
+  - component: {fileID: 653822381}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -656,19 +656,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &653822372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653822371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 959f679bf2720dc419bdf8c7e5e75f63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ins: {fileID: 0}
 --- !u!114 &653822373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,20 +675,6 @@ MonoBehaviour:
   instruments:
   - {fileID: 11400000, guid: e27e00d63037a2a4990e35e6eebc8191, type: 2}
   - {fileID: 11400000, guid: 8ea0437dceb585649bd0826906a5cbf4, type: 2}
---- !u!114 &653822374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653822371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d1eb764c29c7e74d9a4bdae752e52bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 7
 --- !u!66 &653822375
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -1067,6 +1040,35 @@ Transform:
   - {fileID: 2147200251}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &653822380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653822371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2acaf7901d05384c9abbb704cbb4da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 7
+  conversionSpeed: 1
+  radius: {fileID: 0}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &653822381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653822371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d4549f40ec8524e906ccb44c7c814c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &668937144
 MonoBehaviour:
   m_ObjectHideFlags: 0

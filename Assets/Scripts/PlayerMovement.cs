@@ -15,9 +15,11 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D[] hits;
     private bool isGrounded = false;
     private float startMoveSpeed;
+    private Instrument ins;
 
     private void Start()
     {
+        ins = GetComponent<Instrument>();
         rb = GetComponent<Rigidbody2D>();
         startMoveSpeed = currentMoveSpeed;
         inputSystemAction = new InputSystem_Actions();
@@ -71,12 +73,12 @@ public class PlayerMovement : MonoBehaviour
             }
             case BonusInfo.BonusType.ConversionSpeed:
             {
-               // conversionSpeed += bonusInfo.value;
+                ins.curentCoversionSpeed += bonusInfo.value;
                 break;
             }
             case BonusInfo.BonusType.InfluenceRadius:
             {
-               // radius.transform.localScale *= bonusInfo.value;
+                ins.radius.transform.localScale *= bonusInfo.value;
                 break;
             }
             default:
@@ -87,9 +89,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void BonusEnd()
     {
+        int curent = 0;
+        curent=ins.getCurentInstrument(curent);
         currentMoveSpeed = startMoveSpeed;
-        //conversionSpeed = baseCoversionSpeed;
-      // radius.transform.localScale = baseRadius;
+        ins.curentCoversionSpeed = ins.instruments[curent].conversionSpeed;
+        ins.radius.transform.localScale=ins.radius.transform.localScale;
     }
 
 }

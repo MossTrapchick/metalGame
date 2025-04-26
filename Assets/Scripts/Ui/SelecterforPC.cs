@@ -7,7 +7,7 @@ public class SelecterforPC : MonoBehaviour
 {
     private InputSystem_Actions inputSystemAction;
 
-    public Instrument ins;
+    private Instrument ins;
 
     Instrument.Instr curent;
 
