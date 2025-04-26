@@ -32,8 +32,8 @@ public class QTEKey : MonoBehaviour
     public void Initialize(QTEManager qteManager, InputControl key, float pressTime)//, InputSystem_Actions inputSystemAction, ReadOnlyArray<InputControl> inputControls)
     {
         _QTEManager = qteManager;
-        OnSuccessedQTE.AddListener(AddPressedKey);
-        OnFailedQTE.AddListener(AddMissedKey);
+        // OnSuccessedQTE.AddListener(AddPressedKey);
+        // OnFailedQTE.AddListener(AddMissedKey);
 
         _targetKey = key;
         _timeToPress = pressTime;
@@ -100,12 +100,14 @@ public class QTEKey : MonoBehaviour
     private void Success()
     {
         Hide();
+        _QTEManager.IncreasePressedKeysCount();
         OnSuccessedQTE?.Invoke();
     }
 
     private void Fail()
     {
         Hide();
+        _QTEManager.IncreaseMissedKeysCount();
         OnFailedQTE?.Invoke();
     }
 
@@ -114,12 +116,12 @@ public class QTEKey : MonoBehaviour
         _isActive = false;
         gameObject.SetActive(false);
 
-        OnSuccessedQTE.RemoveListener(AddPressedKey);
-        OnFailedQTE.RemoveListener(AddMissedKey);
+        // OnSuccessedQTE.RemoveListener(AddPressedKey);
+        // OnFailedQTE.RemoveListener(AddMissedKey);
         _QTEManager.ReturnQTEKeyToPool(this);
     }
 
-    private void AddPressedKey() => _QTEManager.IncreasePressedKeysCount();
+    // private void AddPressedKey() => _QTEManager.IncreasePressedKeysCount();
 
-    private void AddMissedKey() => _QTEManager.IncreaseMissedKeysCount();
+    // private void AddMissedKey() => _QTEManager.IncreaseMissedKeysCount();
 }
