@@ -62,6 +62,12 @@ public class DancerNPC : MonoBehaviour
 
     private void Converse()
     {
+        if (curPlayer == null)
+        {
+            CancelInvoke(nameof(Converse));
+            return;
+        }
+        
         if (ConversionValue < maxConversionValSize)
             ConversionValue += curPlayer.conversionSpeed * 0.1f;
         

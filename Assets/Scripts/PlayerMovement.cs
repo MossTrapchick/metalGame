@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -16,10 +17,17 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D[] hits;
     private bool isGrounded = false;
 
+    private float baseSpeed, baseCoversionSpeed;
+    private Vector3 baseRadius;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         radius.color = playerColor;
+
+        baseSpeed = moveSpeed;
+        baseCoversionSpeed = conversionSpeed;
+        baseRadius = radius.transform.localScale;
         
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
@@ -45,5 +53,38 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
             rb.linearVelocity = Vector2.up * jumpForce;
     }
+
+    public void PickupBonus(BonusInfo bonusInfo)
+    {
+        switch (bonusInfo.type)
+        {
+            case BonusInfo.BonusType.MoveSpeed:
+            {
+                moveSpeed += bonusInfo.value;
+                break;
+            }
+            case BonusInfo.BonusType.ConversionSpeed:
+            {
+                conversionSpeed += bonusInfo.value;
+                break;
+            }
+            case BonusInfo.BonusType.InfluenceRadius:
+            {
+                radius.transform.localScale *= bonusInfo.value;
+                break;
+            }
+            default:
+                break;
+        }
+        Invoke(nameof(BonusEnd), bonusInfo.bonusDurationSec);
+    }
+
+    private void BonusEnd()
+    {
+        moveSpeed = baseSpeed;
+        conversionSpeed = baseCoversionSpeed;
+        radius.transform.localScale = baseRadius;
+    }
+
 }
 
