@@ -29,6 +29,11 @@ public class DancerNPC : MonoBehaviour
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
     }
 
+    private void FixedUpdate()
+    {
+        Debug.Log(curPlayer?.name);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent(out curPlayer)) return;
