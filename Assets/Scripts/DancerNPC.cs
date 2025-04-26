@@ -14,7 +14,7 @@ public class DancerNPC : MonoBehaviour
     private Rigidbody2D rb;
     
     private Coroutine movingCoroutine;
-    private PlayerMovement curPlayer;
+    private Instrument curPlayer;
 
     public float ConversionValue { get; set; }
 
@@ -50,9 +50,9 @@ public class DancerNPC : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.TryGetComponent<PlayerMovement>(out _)) return;
+        if (!other.TryGetComponent<Instrument>(out _)) return;
 
-        if (curPlayer == other.GetComponent<PlayerMovement>())
+        if (curPlayer == other.GetComponent<Instrument>())
         {
             CancelInvoke(nameof(Converse));
             curPlayer = null;
@@ -62,14 +62,8 @@ public class DancerNPC : MonoBehaviour
 
     private void Converse()
     {
-        if (curPlayer == null)
-        {
-            CancelInvoke(nameof(Converse));
-            return;
-        }
-        
         if (ConversionValue < maxConversionValSize)
-            ConversionValue += curPlayer.conversionSpeed * 0.1f;
+            //ConversionValue += curPlayer.conversionSpeed * 0.1f;
         
         colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
         conversionVal.color = curPlayer.playerColor;

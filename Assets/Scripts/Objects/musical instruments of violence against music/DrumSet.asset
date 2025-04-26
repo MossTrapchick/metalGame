@@ -17,7 +17,6 @@ MonoBehaviour:
     \u0421\u041B\u041E\u041C\u0410\u042E\u0422 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0443
     \u0438\u043B\u0438 \u0440\u0443\u043A\u0438"
   itemDamage: 2
-  itemRadius: 4
-  itemParticle: {fileID: 0}
-  itemSprite: {fileID: 0}
-  itemIcon: {fileID: 1208040086343421634, guid: a18cd5acc0d314044867352f947240a7, type: 3}
+  itemRadius: 10
+  itemSprite: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}
+  itemIcon: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}

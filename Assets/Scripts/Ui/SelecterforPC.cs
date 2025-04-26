@@ -10,7 +10,7 @@ public class SelecterforPC : MonoBehaviour
     {
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
-        ins = new Instrument();
+        ins = GetComponent<Instrument>();
 
     }
 
@@ -23,11 +23,11 @@ public class SelecterforPC : MonoBehaviour
     
     private void SelectDrum(InputAction.CallbackContext obj)
     {
-        ins.SelectDrum();
+        ins.isDrum();
     }
     private void SelectGitar(InputAction.CallbackContext obj)
     {
-        ins.SelectGitar();
+       ins.isGitar();
     }
 
     private void OnDisable()
