@@ -1,12 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Instrument;
 
 public class SelecterforPC : MonoBehaviour
 {
     private InputSystem_Actions inputSystemAction;
 
-    public Instrument ins;
-    Instrument.Instr curentInstrument;
+    private Instrument ins;
+
+    Instrument.Instr curent;
+
+
+
 
 
     private void Awake()
@@ -27,15 +33,23 @@ public class SelecterforPC : MonoBehaviour
     {
         inputSystemAction.Player.TopMenuNavigationDrum.performed += SelectDrum;
         inputSystemAction.Player.TopMenuNavigationGitar.performed += SelectGitar;
+        inputSystemAction.Player.TopMenuNavigationGitar.performed += SelectBass;
     }
     
     private void SelectDrum(InputAction.CallbackContext obj)
     {
-        curentInstrument = ins.curentInstrument;
+        curent = Instrument.Instr.Drums;
+        ins.ToggleInstrument(curent);
     }
     private void SelectGitar(InputAction.CallbackContext obj)
     {
-        curentInstrument = ins.curentInstrument;
+        curent = Instrument.Instr.Guitar;
+        ins.ToggleInstrument(curent);
+    }
+    private void SelectBass(InputAction.CallbackContext obj)
+    {
+        curent = Instrument.Instr.Guitar;
+        ins.ToggleInstrument(curent);
     }
 
     private void OnDisable()

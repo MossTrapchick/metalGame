@@ -3,32 +3,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed;
+    [SerializeField] Animator anim;
+    [SerializeField] GameObject front, side;
+    public float currentMoveSpeed;
     public float jumpForce;
-   
-
-    /*    public SpriteRenderer radius;
-        public Color playerColor;*/
 
     private Vector2 moveDirection = Vector2.zero;
     private InputSystem_Actions inputSystemAction;
-    private Rigidbody2D rb;
 
+    private Rigidbody2D rb;
     private RaycastHit2D[] hits;
     private bool isGrounded = false;
-
-    private float baseSpeed;
-    private Vector3 baseRadius;
+    private float startMoveSpeed;
+    private Instrument ins;
 
     private void Start()
     {
+        ins = GetComponent<Instrument>();
         rb = GetComponent<Rigidbody2D>();
-
-
-        baseSpeed = moveSpeed;
-        
-
-        
+        startMoveSpeed = currentMoveSpeed;
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
         
@@ -42,16 +35,31 @@ public class PlayerMovement : MonoBehaviour
     {
         hits = Physics2D.RaycastAll(transform.position, Vector2.down, 2f);
         isGrounded = hits[^1].collider.CompareTag("Ground");
-        
- 
 
-        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
+        bool isWalking = moveDirection.x != 0;
+        anim.SetBool("IsWalking", isWalking);
+
+        if (isWalking)
+        {
+            transform.localScale = new(moveDirection.x < 0 ? 1 : -1, 1, 1);
+            side.SetActive(true);
+            front.SetActive(false);
+        }
+        else
+        {
+            side.SetActive(false);
+            front.SetActive(true);
+        }
+        rb.linearVelocity = new Vector2(moveDirection.x * currentMoveSpeed, rb.linearVelocity.y);
     }
 
     private void Jump()
     {
         if (isGrounded)
+        {
+            anim.SetTrigger("Jump");
             rb.linearVelocity = Vector2.up * jumpForce;
+        }
     }
 
     public void PickupBonus(BonusInfo bonusInfo)
@@ -60,17 +68,17 @@ public class PlayerMovement : MonoBehaviour
         {
             case BonusInfo.BonusType.MoveSpeed:
             {
-                moveSpeed += bonusInfo.value;
+                currentMoveSpeed += bonusInfo.value;
                 break;
             }
             case BonusInfo.BonusType.ConversionSpeed:
             {
-               // conversionSpeed += bonusInfo.value;
+                ins.curentCoversionSpeed += bonusInfo.value;
                 break;
             }
             case BonusInfo.BonusType.InfluenceRadius:
             {
-               // radius.transform.localScale *= bonusInfo.value;
+                ins.radius.transform.localScale *= bonusInfo.value;
                 break;
             }
             default:
@@ -81,9 +89,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void BonusEnd()
     {
-        moveSpeed = baseSpeed;
-        //conversionSpeed = baseCoversionSpeed;
-      // radius.transform.localScale = baseRadius;
+        int curent = 0;
+        curent=ins.getCurentInstrument(curent);
+        currentMoveSpeed = startMoveSpeed;
+        ins.curentCoversionSpeed = ins.instruments[curent].conversionSpeed;
+        ins.radius.transform.localScale=ins.radius.transform.localScale;
     }
 
 }

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dff0449bc865e3479d5424d294601a0, type: 3}
   m_Name: Gitar
   m_EditorClassIdentifier: 
+  Id: 1
   itemName: "\u0411\u0430\u0441-\u0433\u0438\u0442\u0430\u0440\u0430"
   descriptionItem: "\u0413\u0438\u0442\u0430\u0440\u0430 \u0434\u043B\u044F \u043C\u0443\u0436\u0435\u043B\u043E\u0436\u0446\u0435\u0432
     \u0438 \u043C\u0435\u0442\u0430\u043B\u043B\u0438\u0441\u0442\u043E\u0432"
-  itemDamage: 2
+  conversionSpeed: 1
   itemRadius: 5
   itemSprite: {fileID: 21300000, guid: a45f79ecaa1023a46baef2ab4cdbddb4, type: 3}
   itemIcon: {fileID: 21300000, guid: a45f79ecaa1023a46baef2ab4cdbddb4, type: 3}

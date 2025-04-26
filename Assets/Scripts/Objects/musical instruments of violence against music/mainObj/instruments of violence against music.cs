@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Item",menuName="ScriptableObject/item")] 
 public class instrumentsofviolenceagainstmusic : ScriptableObject
 {
+    public int Id;
+
     public string itemName;
     public string descriptionItem;
 
