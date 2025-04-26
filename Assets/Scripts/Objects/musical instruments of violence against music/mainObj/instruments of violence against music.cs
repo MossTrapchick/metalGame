@@ -13,8 +13,8 @@ public class instrumentsofviolenceagainstmusic : ScriptableObject
     public float itemRadius;
 
     public GameObject itemParticle;
-    public Image itemSprite;
-    public Image itemIcon;
+    public Sprite itemSprite;
+    public Sprite itemIcon;
 
 
 
