@@ -49,8 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8c8ae2ccc1cb040bbea4d1c7d6eb22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetKey: 122
-  timeToPress: 1
   keyText: {fileID: 2388184215072229063}
   spawnAreaMin: {x: -100, y: -100}
   spawnAreaMax: {x: 100, y: 100}
@@ -159,7 +157,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

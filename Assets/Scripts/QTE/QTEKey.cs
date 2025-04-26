@@ -2,8 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
-using UnityEngine.InputSystem.Utilities;
+using UnityEngine.UIElements;
 
 public class QTEKey : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class QTEKey : MonoBehaviour
     [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax;
 
     private QTEManager _QTEManager;
-    public InputControl _targetKey { get; private set; } //= KeyCode.Q;
+    public InputControl _targetKey { get; private set; }
     private float _timeToPress = 1f;
     private float _timer;
     private bool _isActive = true;
@@ -19,8 +18,6 @@ public class QTEKey : MonoBehaviour
     public UnityEvent OnSuccessedQTE;
     public UnityEvent OnFailedQTE;
 
-    // private InputSystem_Actions inputSystemAction;
-    // private ReadOnlyArray<InputControl> inputControls;
 
     private void Awake()
     {
@@ -37,11 +34,7 @@ public class QTEKey : MonoBehaviour
 
         _targetKey = key;
         _timeToPress = pressTime;
-        keyText.text = key.path;
-
-        // this.inputSystemAction = inputSystemAction;
-        // inputSystemAction.Player.QTE.performed += pressedKey => { Check(); };
-        // this.inputControls = inputControls;
+        keyText.text = key.displayName;
 
         SpawnKey();
     }
@@ -81,20 +74,6 @@ public class QTEKey : MonoBehaviour
         {
             Success();
         }
-        // if (_timer >= _timeToPress)
-        // {
-        //     Fail();
-        //     // return;
-        // }
-        // else
-
-        // inputControls.
-
-        // if (Input.GetKeyDown(_targetKey))
-        // if (pressedKey.)
-        // {
-        //     Success();
-        // }
     }
 
     private void Success()
