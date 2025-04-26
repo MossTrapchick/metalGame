@@ -64,7 +64,7 @@ public class QTEManager : MonoBehaviour
 
     private void CheckPressedKey(InputControl pressedKey)
     {
-        QTEKey key = _activeQTEKeys.Find(x => x._targetKey == pressedKey);
+        QTEKey key = _activeQTEKeys.Find(x => x.TargetKey == pressedKey);
         key?.PressKey();
     }
 
@@ -123,7 +123,6 @@ public class QTEManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay);
         SpawnRandomQTE();
 
-        // while (_activeInputs.Count < QTEKeysCount)
         while (_activeQTEKeys.Count < QTEKeysCount)
         {
             yield return new WaitForSeconds(spawnInterval);
@@ -138,7 +137,7 @@ public class QTEManager : MonoBehaviour
     {
         if (_activeQTEKeys.Count >= maxKeysCount) return;
 
-        InputControl randomKey = inputControls[Random.Range(0, inputControls.Count)];//possibleKeys[Random.Range(0, possibleKeys.Count)];
+        InputControl randomKey = inputControls[Random.Range(0, inputControls.Count)];
 
         QTEKey newKey = GetQTEKeyFromPool();
         newKey.Initialize(this, randomKey, keyPressTime);

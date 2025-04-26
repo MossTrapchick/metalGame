@@ -8,18 +8,23 @@ public class QTEKey : MonoBehaviour
     [SerializeField] private TMP_Text keyText;
     [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax;
 
+    public InputControl TargetKey { get; private set; }
+
+    private Mover _Mover;
     private QTEManager _QTEManager;
-    public InputControl _targetKey { get; private set; }
     private float _timeToPress = 1f;
     private float _timer;
     private bool _isActive = true;
 
+    public UnityEvent OnQTESpawned;
     public UnityEvent OnSuccessedQTE;
     public UnityEvent OnFailedQTE;
 
     private void Awake()
     {
         keyText ??= GetComponentInChildren<TMP_Text>();
+        OnQTESpawned.AddListener(() => GetComponent<Mover>().MoveToOffset());
+
         OnSuccessedQTE.AddListener(() => { Debug.Log($"Successed QTE {keyText.text}"); });
         OnFailedQTE.AddListener(() => { Debug.Log($"Failed QTE {keyText.text}"); });
     }
@@ -27,10 +32,11 @@ public class QTEKey : MonoBehaviour
     public void Initialize(QTEManager qteManager, InputControl key, float pressTime)//, InputSystem_Actions inputSystemAction, ReadOnlyArray<InputControl> inputControls)
     {
         _QTEManager = qteManager;
+
         // OnSuccessedQTE.AddListener(AddPressedKey);
         // OnFailedQTE.AddListener(AddMissedKey);
 
-        _targetKey = key;
+        TargetKey = key;
         _timeToPress = pressTime;
         keyText.text = key.displayName;
 
@@ -46,6 +52,8 @@ public class QTEKey : MonoBehaviour
         _timer = 0f;
         _isActive = true;
         gameObject.SetActive(true);
+
+        OnQTESpawned?.Invoke();
     }
 
     private void Update()
