@@ -12,7 +12,7 @@ public class DancerNPC : MonoBehaviour
     
     private Coroutine movingCoroutine;
     private int rand;
-    private PlayerTemp curPlayer;
+    private PlayerMovement curPlayer;
     
     private void Start()
     {
@@ -29,9 +29,9 @@ public class DancerNPC : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.TryGetComponent<PlayerTemp>(out _)) return;
+        if (!other.TryGetComponent<PlayerMovement>(out _)) return;
         
-        if (curPlayer == other.GetComponent<PlayerTemp>())
+        if (curPlayer == other.GetComponent<PlayerMovement>())
             curPlayer = null;
     }
 

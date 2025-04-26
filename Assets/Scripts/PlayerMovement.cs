@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerTemp : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
@@ -8,8 +8,9 @@ public class PlayerTemp : MonoBehaviour
     private Vector2 moveDirection = Vector2.zero;
     private InputSystem_Actions inputSystemAction;
     private Rigidbody2D rb;
-    
-    private CompositeCollider2D compositeCollider;
+
+    private RaycastHit2D[] hits;
+    private bool isGrounded = false;
 
     private void Start()
     {
@@ -26,12 +27,15 @@ public class PlayerTemp : MonoBehaviour
 
     private void FixedUpdate()
     {
+        hits = Physics2D.RaycastAll(transform.position, Vector2.down, 2f);
+        isGrounded = hits[^1].collider.CompareTag("Ground");
+        
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
     }
 
     private void Jump()
     {
-        if (rb.linearVelocity.y == 0)
+        if (isGrounded)
             rb.linearVelocity = Vector2.up * jumpForce;
     }
 }
