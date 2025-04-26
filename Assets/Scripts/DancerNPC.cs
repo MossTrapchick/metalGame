@@ -29,17 +29,14 @@ public class DancerNPC : MonoBehaviour
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
     }
 
-    private void FixedUpdate()
-    {
-        Debug.Log(curPlayer?.name);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent(out curPlayer)) return;
         
         colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
+        
     }
     
     private void OnTriggerStay2D(Collider2D other)
@@ -47,6 +44,7 @@ public class DancerNPC : MonoBehaviour
         if (!other.TryGetComponent(out curPlayer)) return;
         
         colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
     }
 
@@ -58,16 +56,27 @@ public class DancerNPC : MonoBehaviour
         {
             CancelInvoke(nameof(Converse));
             curPlayer = null;
+            InvokeRepeating(nameof(UndoConverse), 5f, 3f);
         }
     }
 
     private void Converse()
     {
-        colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
         if (ConversionValue < maxConversionValSize)
             ConversionValue += curPlayer.conversionSpeed * 0.1f;
         
+        colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
         conversionVal.color = curPlayer.playerColor;
+        conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
+    }
+
+    private void UndoConverse()
+    {
+        if (ConversionValue > 0.1f)
+            ConversionValue -= 0.1f;
+        
+        colorIndicator.color = Color.Lerp(colorIndicator.color, new Color(1, 1, 1, 0), ConversionValue);
+        conversionVal.color = Color.Lerp(conversionVal.color, Color.white, ConversionValue);
         conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
     }
 
