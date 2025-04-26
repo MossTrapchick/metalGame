@@ -7,8 +7,6 @@ using Unity.Multiplayer.Playmode;
 public class DancerNPC : MonoBehaviour
 {
 
-    [SerializeField] instrumentsofviolenceagainstmusic Gitar;
-    [SerializeField] instrumentsofviolenceagainstmusic Drum;
     public int moveSpeed = 5;
     public SpriteRenderer colorIndicator;
     public GameObject conversionBar;
@@ -56,7 +54,6 @@ public class DancerNPC : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         if (!other.TryGetComponent(out curPlayer)) return;
-
         curentInstrument = curPlayer.curentInstrument;
         colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
@@ -83,17 +80,10 @@ public class DancerNPC : MonoBehaviour
             return;
         }
 
-        if (ConversionValue < maxConversionValSize)
+        if (ConversionValue < maxConversionValSize) {
 
-            if (curentInstrument==Instrument.Instr.Drums)
-            {
-                ConversionValue = Drum.conversionSpeed;
-            }
-            else if (curentInstrument == Instrument.Instr.Guitar)
-            {
-                ConversionValue = Gitar.conversionSpeed;
-            }
-
+            ConversionValue += curPlayer.baseCoversionSpeed * 0.1f;   
+        }
 
         colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
         conversionVal.color = curPlayer.playerColor;

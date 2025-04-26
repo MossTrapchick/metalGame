@@ -10,7 +10,7 @@ public class Instrument : MonoBehaviour
 
     public float baseCoversionSpeed;
 
-
+    
 
     //[SerializeField]  GameObject Instruments;
 
@@ -29,17 +29,10 @@ public class Instrument : MonoBehaviour
 
     private void Start()
     {
+        
+        radius.color = playerColor;
         isGitar();
-        radius.color = playerColor;
     }
-
-    private void FixedUpdate()
-    {
-        radius.color = playerColor;
-    }
-
-
-
     public void isDrum()
     {
         baseCoversionSpeed =Drum.conversionSpeed;

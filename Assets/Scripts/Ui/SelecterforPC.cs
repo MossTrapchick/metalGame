@@ -5,13 +5,20 @@ public class SelecterforPC : MonoBehaviour
 {
     private InputSystem_Actions inputSystemAction;
 
-    private Instrument ins;
+    public Instrument ins;
+
+    
     private void Awake()
     {
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
-        ins = GetComponent<Instrument>();
+       
 
+    }
+
+    private void Start()
+    {
+        ins = GetComponent<Instrument>();
     }
 
 

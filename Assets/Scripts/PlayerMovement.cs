@@ -23,11 +23,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //radius.color = playerColor;
+
 
         baseSpeed = moveSpeed;
         
-        //baseRadius = radius.transform.localScale;
+
         
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         hits = Physics2D.RaycastAll(transform.position, Vector2.down, 2f);
         isGrounded = hits[^1].collider.CompareTag("Ground");
         
-        //radius.color = playerColor;
+ 
 
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
     }
