@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using UnityEngine.InputSystem.Utilities;
 
 public class QTEKey : MonoBehaviour
 {
@@ -8,13 +11,16 @@ public class QTEKey : MonoBehaviour
     [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax;
 
     private QTEManager _QTEManager;
-    private KeyCode _targetKey = KeyCode.Q;
+    public InputControl _targetKey { get; private set; } //= KeyCode.Q;
     private float _timeToPress = 1f;
     private float _timer;
     private bool _isActive = true;
 
     public UnityEvent OnSuccessedQTE;
     public UnityEvent OnFailedQTE;
+
+    // private InputSystem_Actions inputSystemAction;
+    // private ReadOnlyArray<InputControl> inputControls;
 
     private void Awake()
     {
@@ -23,15 +29,19 @@ public class QTEKey : MonoBehaviour
         OnFailedQTE.AddListener(() => { Debug.Log($"Failed QTE {keyText.text}"); });
     }
 
-    public void Initialize(QTEManager qteManager, KeyCode key, float pressTime)
+    public void Initialize(QTEManager qteManager, InputControl key, float pressTime)//, InputSystem_Actions inputSystemAction, ReadOnlyArray<InputControl> inputControls)
     {
         _QTEManager = qteManager;
-        OnSuccessedQTE.AddListener(() => { qteManager.IncreasePressedKeysCount(); });
-        OnFailedQTE.AddListener(() => { qteManager.IncreaseMissedKeysCount(); });
+        OnSuccessedQTE.AddListener(() => { _QTEManager.IncreasePressedKeysCount(); });
+        OnFailedQTE.AddListener(() => { _QTEManager.IncreaseMissedKeysCount(); });
 
         _targetKey = key;
         _timeToPress = pressTime;
-        keyText.text = key.ToString();
+        keyText.text = key.path;
+
+        // this.inputSystemAction = inputSystemAction;
+        // inputSystemAction.Player.QTE.performed += pressedKey => { Check(); };
+        // this.inputControls = inputControls;
 
         SpawnKey();
     }
@@ -50,19 +60,41 @@ public class QTEKey : MonoBehaviour
     private void Update()
     {
         if (!_isActive) return;
+        UpdateTimer();
+    }
 
+    private void UpdateTimer()
+    {
         _timer += Time.deltaTime;
 
-        if (_timer >= _timeToPress)
+        if (_timer >= _timeToPress && _isActive)
         {
             Fail();
-            return;
+            // return;
         }
+    }
 
-        if (Input.GetKeyDown(_targetKey))
+    public void PressKey()
+    {
+        if (!_isActive) return;
+        if (_timer < _timeToPress && _isActive)
         {
             Success();
         }
+        // if (_timer >= _timeToPress)
+        // {
+        //     Fail();
+        //     // return;
+        // }
+        // else
+
+        // inputControls.
+
+        // if (Input.GetKeyDown(_targetKey))
+        // if (pressedKey.)
+        // {
+        //     Success();
+        // }
     }
 
     private void Success()
@@ -77,10 +109,13 @@ public class QTEKey : MonoBehaviour
         OnFailedQTE?.Invoke();
     }
 
-    private void Hide()
+    public void Hide()
     {
         _isActive = false;
         gameObject.SetActive(false);
+
+        OnSuccessedQTE.RemoveListener(() => { _QTEManager.IncreasePressedKeysCount(); });
+        OnFailedQTE.RemoveListener(() => { _QTEManager.IncreaseMissedKeysCount(); });
         _QTEManager.ReturnQTEKeyToPool(this);
     }
 }

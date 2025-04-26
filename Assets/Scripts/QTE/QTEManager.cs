@@ -2,35 +2,48 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using System.Collections;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class QTEManager : MonoBehaviour
 {
     [SerializeField] private RectTransform QTEParent;
     [SerializeField] private GameObject QTEPrefab;
-    [SerializeField] private List<KeyCode> possibleKeys;
+    // [SerializeField] private List<KeyCode> possibleKeys;
     [SerializeField] private float startDelay = 1f;
     [SerializeField] private float spawnInterval = 1.5f;
     [SerializeField] private float keyPressTime = 1f;
     [SerializeField] private int roundKeysCount = 4;
-    [SerializeField] private int maxKeysCount = 10;
+    [Tooltip("For preload")][SerializeField] private int maxKeysCount = 10;
 
-    private Coroutine _qteSpawnRoutine;
-    private Queue<QTEKey> _qtePool = new Queue<QTEKey>();
-    private List<KeyCode> _activeKeys = new List<KeyCode>();
-
-    public int pressedKeysCount { get; private set; } = 0;
-    public int missedKeysCount { get; private set; } = 0;
+    public int pressedKeysCount /*{ get; private set; }*/ = 0;
+    public int missedKeysCount /*{ get; private set; }*/ = 0;
 
     public UnityEvent OnRoundStarted;
     public UnityEvent OnRoundFinished;
     public UnityEvent<int> OnQTEPassed;
     public UnityEvent<int> OnQTEMissed;
 
+    private Coroutine _qteSpawnRoutine;
+    private Queue<QTEKey> _qtePool = new Queue<QTEKey>();
+    // private List<KeyCode> _activeKeys = new List<KeyCode>();
+    // private List<InputControl> _activeInputs = new List<InputControl>();
+    private List<QTEKey> _activeQTEKeys = new List<QTEKey>();
+
+    private InputSystem_Actions inputSystemAction; //= new();
+    private ReadOnlyArray<InputControl> inputControls;
+
     private void Awake()
     {
         OnRoundStarted.AddListener(() => { Debug.Log("Round Started"); ; });
         OnRoundFinished.AddListener(() => { Debug.Log("Round Finished"); ; });
         PreloadQTEKeys();
+
+        inputSystemAction = new();
+        inputSystemAction.Enable();
+        inputSystemAction.Player.QTE.performed += pressedKey => { CheckPressedKey(pressedKey); };
+        inputSystemAction.Player.QTE.performed += pressedKey => { Debug.Log($"pressed key {pressedKey.control}"); };
+        inputControls = inputSystemAction.Player.QTE.controls;
     }
 
     private void Update()
@@ -39,6 +52,13 @@ public class QTEManager : MonoBehaviour
             StartRound(roundKeysCount);
     }
 
+    private void CheckPressedKey(InputAction.CallbackContext pressedKey)
+    {
+        QTEKey key = _activeQTEKeys.Find(x => x._targetKey == pressedKey.control);
+        key?.PressKey();
+    }
+
+    #region Pool
     private void PreloadQTEKeys()
     {
         for (int i = 0; i < maxKeysCount; i++)
@@ -73,22 +93,28 @@ public class QTEManager : MonoBehaviour
     {
         _qtePool.Enqueue(QTEKey);
     }
+    #endregion
 
     public void StartRound(int QTEKeysCount)
     {
-        OnRoundStarted?.Invoke();
-
         if (_qteSpawnRoutine != null)
+        {
+            Debug.Log("Round was already started");
             StopRound();
-        _qteSpawnRoutine ??= StartCoroutine(SpawnQTECycle(QTEKeysCount));
+            return;
+        }
+        _qteSpawnRoutine ??= StartCoroutine(SpawnQTERound(QTEKeysCount));
+
+        OnRoundStarted?.Invoke();
     }
 
-    private IEnumerator SpawnQTECycle(int QTEKeysCount)
+    private IEnumerator SpawnQTERound(int QTEKeysCount)
     {
         yield return new WaitForSeconds(startDelay);
         SpawnRandomQTE();
 
-        while (_activeKeys.Count < QTEKeysCount)
+        // while (_activeInputs.Count < QTEKeysCount)
+        while (_activeQTEKeys.Count < QTEKeysCount)
         {
             yield return new WaitForSeconds(spawnInterval);
             SpawnRandomQTE();
@@ -100,29 +126,19 @@ public class QTEManager : MonoBehaviour
 
     private void SpawnRandomQTE()
     {
-        if (_activeKeys.Count >= maxKeysCount) return;
+        // if (_activeKeys.Count >= maxKeysCount) return;
+        // if (_activeInputs.Count >= maxKeysCount) return;
+        if (_activeQTEKeys.Count >= maxKeysCount) return;
 
-        KeyCode randomKey = possibleKeys[Random.Range(0, possibleKeys.Count)];
+        // KeyCode randomKey = possibleKeys[Random.Range(0, possibleKeys.Count)];
+        InputControl randomKey = inputControls[Random.Range(0, inputControls.Count)];//possibleKeys[Random.Range(0, possibleKeys.Count)];
 
         QTEKey newKey = GetQTEKeyFromPool();
-        newKey.Initialize(this, randomKey, keyPressTime);
+        newKey.Initialize(this, randomKey, keyPressTime);//, inputSystemAction, inputControls);
 
-        _activeKeys.Add(randomKey);
-    }
-
-    public void StopRound()
-    {
-        if (_qteSpawnRoutine != null)
-        {
-            StopCoroutine(_qteSpawnRoutine);
-            _qteSpawnRoutine = null;
-        }
-
-        Debug.Log($"Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}");
-
-        _activeKeys.Clear();
-        ResetKeysCounts();
-        OnRoundFinished?.Invoke();
+        // _activeKeys.Add(randomKey);
+        // _activeInputs.Add(randomKey);
+        _activeQTEKeys.Add(newKey);
     }
 
     public void IncreasePressedKeysCount()
@@ -141,10 +157,32 @@ public class QTEManager : MonoBehaviour
         if (pressedKeysCount + missedKeysCount < maxKeysCount)
         {
             missedKeysCount++;
-            OnQTEPassed?.Invoke(missedKeysCount);
+            OnQTEMissed?.Invoke(missedKeysCount);
         }
         else
             Debug.LogWarning("All keys are already pressed");
+    }
+
+    public void StopRound()
+    {
+        if (_qteSpawnRoutine != null)
+        {
+            StopCoroutine(_qteSpawnRoutine);
+            _qteSpawnRoutine = null;
+
+            Debug.Log($"Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}");
+            ResetKeysCounts();
+            Debug.Log($"Reseted: Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}");
+
+            // _activeInputs.Clear();
+            foreach (QTEKey key in _activeQTEKeys)
+            {
+                key.Hide();
+                // _activeQTEKeys.Remove(key);
+            }
+            _activeQTEKeys.Clear();
+            OnRoundFinished?.Invoke();
+        }
     }
 
     public void ResetKeysCounts()
