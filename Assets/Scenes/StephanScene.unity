@@ -681,12 +681,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac946e4b7185c148ab6ca3b27fd0a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gitar: {fileID: 11400000, guid: e27e00d63037a2a4990e35e6eebc8191, type: 2}
-  Drum: {fileID: 11400000, guid: 8ea0437dceb585649bd0826906a5cbf4, type: 2}
   baseCoversionSpeed: 1
   playerColor: {r: 0.5999999, g: 0.012452815, b: 0.012452815, a: 1}
   radius: {fileID: 456709023}
   curentInstrument: 0
+  instruments:
+  - {fileID: 11400000, guid: e27e00d63037a2a4990e35e6eebc8191, type: 2}
+  - {fileID: 11400000, guid: 8ea0437dceb585649bd0826906a5cbf4, type: 2}
 --- !u!114 &653822374
 MonoBehaviour:
   m_ObjectHideFlags: 0

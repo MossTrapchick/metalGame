@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dff0449bc865e3479d5424d294601a0, type: 3}
   m_Name: DrumSet
   m_EditorClassIdentifier: 
+  Id: 0
   itemName: "\u0411\u0430\u0440\u0430\u0431\u0430\u043D\u043D\u0430\u044F \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0430"
   descriptionItem: "\u0414\u041E\u041B\u0411\u0418 \u041F\u041E\u041A\u0410 \u041D\u0415
     \u0421\u041B\u041E\u041C\u0410\u042E\u0422 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0443
     \u0438\u043B\u0438 \u0440\u0443\u043A\u0438"
-  itemDamage: 2
+  conversionSpeed: 1
   itemRadius: 10
   itemSprite: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}
   itemIcon: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}
