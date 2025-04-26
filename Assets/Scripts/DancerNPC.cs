@@ -24,7 +24,7 @@ public class DancerNPC : MonoBehaviour
 
     private void FixedUpdate()
     {
-       // Debug.Log(curPlayer?.name);
+        Debug.Log(curPlayer?.name);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
