@@ -32,8 +32,8 @@ public class QTEKey : MonoBehaviour
     public void Initialize(QTEManager qteManager, InputControl key, float pressTime)//, InputSystem_Actions inputSystemAction, ReadOnlyArray<InputControl> inputControls)
     {
         _QTEManager = qteManager;
-        OnSuccessedQTE.AddListener(() => { _QTEManager.IncreasePressedKeysCount(); });
-        OnFailedQTE.AddListener(() => { _QTEManager.IncreaseMissedKeysCount(); });
+        OnSuccessedQTE.AddListener(AddPressedKey);
+        OnFailedQTE.AddListener(AddMissedKey);
 
         _targetKey = key;
         _timeToPress = pressTime;
@@ -114,8 +114,12 @@ public class QTEKey : MonoBehaviour
         _isActive = false;
         gameObject.SetActive(false);
 
-        OnSuccessedQTE.RemoveListener(() => { _QTEManager.IncreasePressedKeysCount(); });
-        OnFailedQTE.RemoveListener(() => { _QTEManager.IncreaseMissedKeysCount(); });
+        OnSuccessedQTE.RemoveListener(AddPressedKey);
+        OnFailedQTE.RemoveListener(AddMissedKey);
         _QTEManager.ReturnQTEKeyToPool(this);
     }
+
+    private void AddPressedKey() => _QTEManager.IncreasePressedKeysCount();
+
+    private void AddMissedKey() => _QTEManager.IncreaseMissedKeysCount();
 }

@@ -262,6 +262,8 @@ MonoBehaviour:
   keyPressTime: 1
   roundKeysCount: 4
   maxKeysCount: 10
+  pressedKeysCount: 0
+  missedKeysCount: 0
   OnRoundStarted:
     m_PersistentCalls:
       m_Calls: []
