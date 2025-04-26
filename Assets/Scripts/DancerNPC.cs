@@ -7,49 +7,71 @@ public class DancerNPC : MonoBehaviour
 {
     public int moveSpeed = 5;
     public SpriteRenderer colorIndicator;
+    public GameObject conversionBar;
+    public SpriteRenderer conversionVal;
+    private float maxConversionValSize;
     
     private Rigidbody2D rb;
     
     private Coroutine movingCoroutine;
-    private int rand;
     private PlayerMovement curPlayer;
-    
+
+    public float ConversionValue { get; set; }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        colorIndicator.color = new Color(colorIndicator.color.r, colorIndicator.color.g, colorIndicator.color.b, 0);
+        ConversionValue = 0;
+        maxConversionValSize = conversionVal.size.x;
+        conversionVal.size = new Vector2(0, conversionVal.size.y);
+        colorIndicator.color = new Color(colorIndicator.color.r, colorIndicator.color.g, colorIndicator.color.b, ConversionValue);
 
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
     }
 
-    private void FixedUpdate()
-    {
-       // Debug.Log(curPlayer?.name);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out curPlayer))
-            colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        if (!other.TryGetComponent(out curPlayer)) return;
+        
+        colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
+    }
+    
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!other.TryGetComponent(out curPlayer)) return;
+        
+        colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.TryGetComponent<PlayerMovement>(out _)) return;
-        
+
         if (curPlayer == other.GetComponent<PlayerMovement>())
+        {
+            CancelInvoke(nameof(Converse));
             curPlayer = null;
+        }
+    }
+
+    private void Converse()
+    {
+        colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
+        if (ConversionValue < maxConversionValSize)
+            ConversionValue += curPlayer.conversionSpeed * 0.1f;
+        
+        conversionVal.color = curPlayer.playerColor;
+        conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
     }
 
     private void RandomMovement()
     {
-        rand = Random.Range(-1, 1);
-        transform.localScale = new Vector3(rand < 0 ? -transform.localScale.x : transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
+        rb.linearVelocity = new Vector2(Random.Range(-1, 1) < 0 ? -moveSpeed : moveSpeed, rb.linearVelocity.y);
         // play walk animation
-        rb.linearVelocity = new Vector2(rand < 0 ? -moveSpeed : moveSpeed, rb.linearVelocity.y);
         
-        Invoke(nameof(MovementPause), Random.Range(1f,6f));
+        Invoke(nameof(MovementPause), Random.Range(2f,11f));
     }
 
     private void MovementPause()

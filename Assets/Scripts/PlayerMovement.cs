@@ -4,6 +4,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+    public float conversionSpeed = 1;
+    
+    public SpriteRenderer radius;
     public Color playerColor;
     
     private Vector2 moveDirection = Vector2.zero;
@@ -15,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        rb ??= GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        radius.color = playerColor;
         
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
@@ -31,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         hits = Physics2D.RaycastAll(transform.position, Vector2.down, 2f);
         isGrounded = hits[^1].collider.CompareTag("Ground");
         
+        radius.color = playerColor;
+
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
     }
 
