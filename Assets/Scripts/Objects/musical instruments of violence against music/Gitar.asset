@@ -19,4 +19,4 @@ MonoBehaviour:
   itemRadius: 3
   itemParticle: {fileID: 0}
   itemSprite: {fileID: 0}
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}
