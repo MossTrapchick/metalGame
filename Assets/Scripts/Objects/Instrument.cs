@@ -37,7 +37,7 @@ public class Instrument : MonoBehaviour
     {
         baseCoversionSpeed =Drum.conversionSpeed;
         Debug.Log("Вы выбради Барабанную установку");
-        radius.transform.localScale = new Vector3(Drum.itemRadius,0,0);
+        radius.transform.localScale = new Vector3(Drum.itemRadius, Drum.itemRadius, Drum.itemRadius);
         Debug.Log(radius.transform.localScale);
         curentInstrument = Instr.Drums;
     }
@@ -47,7 +47,7 @@ public class Instrument : MonoBehaviour
     {
         baseCoversionSpeed = Gitar.conversionSpeed;
         Debug.Log("Вы выбради акустическую гитару");
-        radius.transform.localScale = new Vector3(Gitar.itemRadius, 0, 0);
+        radius.transform.localScale = new Vector3(Gitar.itemRadius, Gitar.itemRadius, Gitar.itemRadius);
         Debug.Log(radius.transform.localScale);
         curentInstrument = Instr.Guitar;
     }

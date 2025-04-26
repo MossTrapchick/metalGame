@@ -6,8 +6,9 @@ public class SelecterforPC : MonoBehaviour
     private InputSystem_Actions inputSystemAction;
 
     public Instrument ins;
+    Instrument.Instr curentInstrument;
 
-    
+
     private void Awake()
     {
         inputSystemAction = new InputSystem_Actions();
@@ -30,11 +31,11 @@ public class SelecterforPC : MonoBehaviour
     
     private void SelectDrum(InputAction.CallbackContext obj)
     {
-        ins.isDrum();
+        curentInstrument = ins.curentInstrument;
     }
     private void SelectGitar(InputAction.CallbackContext obj)
     {
-       ins.isGitar();
+        curentInstrument = ins.curentInstrument;
     }
 
     private void OnDisable()
