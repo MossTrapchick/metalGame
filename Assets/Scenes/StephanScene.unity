@@ -1130,7 +1130,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpForce: 5
-  conversionSpeed: 1
 --- !u!114 &1381276682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,7 +1258,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.34117648}
+  m_Color: {r: 0.16074759, g: 0.19181532, b: 0.79622644, a: 0.34117648}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1636,8 +1635,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gitar: {fileID: 11400000, guid: e27e00d63037a2a4990e35e6eebc8191, type: 2}
   Drum: {fileID: 11400000, guid: 8ea0437dceb585649bd0826906a5cbf4, type: 2}
-  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  baseCoversionSpeed: 1
+  playerColor: {r: 0.5999999, g: 0.012452815, b: 0.012452815, a: 1}
   radius: {fileID: 1386182284}
+  curentInstrument: 0
 --- !u!114 &1790398286
 MonoBehaviour:
   m_ObjectHideFlags: 0

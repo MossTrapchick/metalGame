@@ -2,19 +2,28 @@ using System;
 using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
+using Unity.Multiplayer.Playmode;
 
 public class DancerNPC : MonoBehaviour
 {
+
+    [SerializeField] instrumentsofviolenceagainstmusic Gitar;
+    [SerializeField] instrumentsofviolenceagainstmusic Drum;
     public int moveSpeed = 5;
     public SpriteRenderer colorIndicator;
     public GameObject conversionBar;
     public SpriteRenderer conversionVal;
     private float maxConversionValSize;
     
+
+    
     private Rigidbody2D rb;
     
     private Coroutine movingCoroutine;
     private Instrument curPlayer;
+    Instrument.Instr curentInstrument;
+
+
 
     public float ConversionValue { get; set; }
 
@@ -27,12 +36,17 @@ public class DancerNPC : MonoBehaviour
         colorIndicator.color = new Color(colorIndicator.color.r, colorIndicator.color.g, colorIndicator.color.b, ConversionValue);
 
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
-    }
+
+        
+
+    }   
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.TryGetComponent(out curPlayer)) return;
         
+        if (!other.TryGetComponent(out curPlayer)) return;
+
+        curentInstrument = curPlayer.curentInstrument;
         colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
@@ -42,7 +56,8 @@ public class DancerNPC : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         if (!other.TryGetComponent(out curPlayer)) return;
-        
+
+        curentInstrument = curPlayer.curentInstrument;
         colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
@@ -62,9 +77,24 @@ public class DancerNPC : MonoBehaviour
 
     private void Converse()
     {
+        if (curPlayer == null)
+        {
+            CancelInvoke(nameof(Converse));
+            return;
+        }
+
         if (ConversionValue < maxConversionValSize)
-            //ConversionValue += curPlayer.conversionSpeed * 0.1f;
-        
+
+            if (curentInstrument==Instrument.Instr.Drums)
+            {
+                ConversionValue = Drum.conversionSpeed;
+            }
+            else if (curentInstrument == Instrument.Instr.Guitar)
+            {
+                ConversionValue = Gitar.conversionSpeed;
+            }
+
+
         colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
         conversionVal.color = curPlayer.playerColor;
         conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);

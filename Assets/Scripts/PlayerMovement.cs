@@ -5,11 +5,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
-    public float conversionSpeed = 1;
-    
-    public SpriteRenderer radius;
-    public Color playerColor;
-    
+   
+
+    /*    public SpriteRenderer radius;
+        public Color playerColor;*/
+
     private Vector2 moveDirection = Vector2.zero;
     private InputSystem_Actions inputSystemAction;
     private Rigidbody2D rb;
@@ -17,17 +17,17 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D[] hits;
     private bool isGrounded = false;
 
-    private float baseSpeed, baseCoversionSpeed;
+    private float baseSpeed;
     private Vector3 baseRadius;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        radius.color = playerColor;
+        //radius.color = playerColor;
 
         baseSpeed = moveSpeed;
-        baseCoversionSpeed = conversionSpeed;
-        baseRadius = radius.transform.localScale;
+        
+        //baseRadius = radius.transform.localScale;
         
         inputSystemAction = new InputSystem_Actions();
         inputSystemAction.Enable();
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         hits = Physics2D.RaycastAll(transform.position, Vector2.down, 2f);
         isGrounded = hits[^1].collider.CompareTag("Ground");
         
-        radius.color = playerColor;
+        //radius.color = playerColor;
 
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
     }
@@ -65,12 +65,12 @@ public class PlayerMovement : MonoBehaviour
             }
             case BonusInfo.BonusType.ConversionSpeed:
             {
-                conversionSpeed += bonusInfo.value;
+               // conversionSpeed += bonusInfo.value;
                 break;
             }
             case BonusInfo.BonusType.InfluenceRadius:
             {
-                radius.transform.localScale *= bonusInfo.value;
+               // radius.transform.localScale *= bonusInfo.value;
                 break;
             }
             default:
@@ -82,8 +82,8 @@ public class PlayerMovement : MonoBehaviour
     private void BonusEnd()
     {
         moveSpeed = baseSpeed;
-        conversionSpeed = baseCoversionSpeed;
-        radius.transform.localScale = baseRadius;
+        //conversionSpeed = baseCoversionSpeed;
+      // radius.transform.localScale = baseRadius;
     }
 
 }

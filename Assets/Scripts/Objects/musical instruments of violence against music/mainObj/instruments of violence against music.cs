@@ -9,7 +9,7 @@ public class instrumentsofviolenceagainstmusic : ScriptableObject
     public string itemName;
     public string descriptionItem;
 
-    public float itemDamage;
+    public float conversionSpeed ;
     public float itemRadius;
 
   //  public GameObject itemParticle;

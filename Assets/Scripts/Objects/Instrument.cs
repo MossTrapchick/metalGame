@@ -8,15 +8,28 @@ public class Instrument : MonoBehaviour
     [SerializeField] instrumentsofviolenceagainstmusic Gitar;
     [SerializeField] instrumentsofviolenceagainstmusic Drum;
 
-    public Color playerColor;
-    public SpriteRenderer radius;
+    public float baseCoversionSpeed;
+
+
+
     //[SerializeField]  GameObject Instruments;
 
 
+    public Color playerColor;
+    public SpriteRenderer radius;
+    public Instr curentInstrument;
 
+    public enum Instr
+        {
+            Guitar,
+            Drums,
+            Bass
+
+        }
 
     private void Start()
     {
+        isGitar();
         radius.color = playerColor;
     }
 
@@ -29,19 +42,24 @@ public class Instrument : MonoBehaviour
 
     public void isDrum()
     {
+        baseCoversionSpeed =Drum.conversionSpeed;
         Debug.Log("Вы выбради Барабанную установку");
         radius.transform.localScale = new Vector3(Drum.itemRadius,0,0);
         Debug.Log(radius.transform.localScale);
+        curentInstrument = Instr.Drums;
     }
 
 
     public void isGitar()
     {
+        baseCoversionSpeed = Gitar.conversionSpeed;
         Debug.Log("Вы выбради акустическую гитару");
         radius.transform.localScale = new Vector3(Gitar.itemRadius, 0, 0);
         Debug.Log(radius.transform.localScale);
+        curentInstrument = Instr.Guitar;
     }
 
+    
     
    
 
