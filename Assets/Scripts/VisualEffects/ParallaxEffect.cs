@@ -1,0 +1,43 @@
+using UnityEngine;
+
+public class ParallaxEffect : MonoBehaviour
+{
+    [Tooltip("0 = not moving; 1 = follows camera")]
+    [SerializeField] private float parallaxFactor;
+    private float oldPosition, spriteSize;
+
+    private void Awake()
+    {
+        spriteSize = GetComponent<SpriteRenderer>().bounds.size.x;
+
+        FindAnyObjectByType<Camera>()?.GetComponent<CameraMovementTracker>()?.OnCameraChanged.AddListener(SetNewPosition);
+    }
+
+    private void Start()
+    {
+        oldPosition = transform.position.x;
+    }
+
+    private void SetNewPosition(float cameraPosition)
+    {
+        float newPosition = oldPosition + cameraPosition * parallaxFactor;
+        transform.position = new Vector2(newPosition, transform.localPosition.y);
+
+        UpdateOldPosition(cameraPosition);
+    }
+
+    private void UpdateOldPosition(float cameraPosition)
+    {
+        float tempPos = cameraPosition * (1 - parallaxFactor);
+        float spriteLength = spriteSize / 2;
+
+        if (tempPos > oldPosition + spriteLength)
+        {
+            oldPosition += spriteSize;
+        }
+        else if (tempPos < oldPosition - spriteLength)
+        {
+            oldPosition -= spriteSize;
+        }
+    }
+}
