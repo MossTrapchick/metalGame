@@ -17,7 +17,7 @@ MonoBehaviour:
   descriptionItem: "\u0414\u041E\u041B\u0411\u0418 \u041F\u041E\u041A\u0410 \u041D\u0415
     \u0421\u041B\u041E\u041C\u0410\u042E\u0422 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0443
     \u0438\u043B\u0438 \u0440\u0443\u043A\u0438"
-  conversionSpeed: 1
-  itemRadius: {x: 0, y: 0, z: 0}
+  conversionSpeed: 0.5
+  itemRadius: {x: 3, y: 3, z: 3}
   itemSprite: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}
   itemIcon: {fileID: -2878558206988971636, guid: a96b1cb83ce8f4f4693889ca4c9f92df, type: 3}
