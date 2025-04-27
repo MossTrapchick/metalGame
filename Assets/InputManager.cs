@@ -7,4 +7,12 @@ public class InputManager : MonoBehaviour
     {
         Input = new();
     }
+    private void OnEnable()
+    {
+        Input.Enable();
+    }
+    private void OnDisable()
+    {
+        Input.Disable();
+    }
 }

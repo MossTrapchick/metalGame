@@ -15,11 +15,14 @@ public class Instrument : NetworkBehaviour
         anim = GetComponent<Animator>();
         if (!IsOwner) return;
         UIInstruments.OnSelectInstrument.AddListener(SelectInstrument);
-        QTEManager.OnQTEPassed.AddListener(ctx => TogglePlaying(true));
-        QTEManager.OnQTEMissed.AddListener(ctx => TogglePlaying(false));
+        QTEManager.OnQTEPassed.AddListener(ctx => TogglePlaying(true, OwnerClientId));
+        QTEManager.OnQTEMissed.AddListener(ctx => TogglePlaying(false, OwnerClientId));
     }
-    void TogglePlaying(bool enabled)
+    [Rpc(SendTo.Everyone)]
+    void TogglePlaying(bool enabled, ulong id)
     {
+        if (id != OwnerClientId) return;
+        if (isPlaying == enabled) return;
         isPlaying = enabled;
         RoadController.ToggleRoad.Invoke(currentInstrument.type, enabled);
         anim.SetBool("IsPlaying", isPlaying);
