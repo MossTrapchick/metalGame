@@ -642,6 +642,39 @@
                     "action": "SelectInstrument",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "SERGEY SASAT",
+                    "id": "e154beff-0b34-4fce-b7ff-1e8317827ffc",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectInstrument",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c318e33e-f989-4b61-831d-dd813926305c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectInstrument",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "25005380-761a-49b9-ab49-fa071ebe30fc",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectInstrument",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

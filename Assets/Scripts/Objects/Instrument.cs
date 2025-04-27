@@ -26,12 +26,14 @@ public class Instrument : NetworkBehaviour
         if (isPlaying == enabled) return;
         isPlaying = enabled;
         RoadController.ToggleRoad.Invoke(currentInstrument.type, enabled);
+
         anim.SetBool("IsPlaying", isPlaying);
     }
     void SelectInstrument(MusicInstrument instrument)
     {
         currentInstrument = instrument;
         SelectRpc(OwnerClientId, instrument);
+        Debug.Log(instrument.ToString());
     }
     [Rpc(SendTo.NotMe)]
     void SelectRpc(ulong id, MusicInstrument instrument)

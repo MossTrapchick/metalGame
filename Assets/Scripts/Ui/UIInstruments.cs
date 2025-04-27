@@ -26,7 +26,8 @@ public class UIInstruments : MonoBehaviour
     {
         int d = (int)InputManager.Input.Player.SelectInstrument.ReadValue<float>();
         if (currentId + d < 0 || currentId + d > instruments.Length - 1) return;
-        currentId += d;
+        currentId += d>0? 1: -1;
+        Debug.Log(d);
         OnSelectInstrument.Invoke(instruments[currentId]);
     }
 }
