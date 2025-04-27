@@ -39,7 +39,7 @@ public class QTEManager : MonoBehaviour
     {
         OnRoundStarted.AddListener(() => { Debug.Log("Round Started"); ; });
         OnRoundFinished.AddListener(() => { Debug.Log($"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
-        OnRoundFinished.AddListener(() => { StartRound() ; });
+        OnRoundFinished.AddListener(() => { StartRound(); });
 
         OnFullSuccessedFinished.AddListener(() => { Debug.Log($"Full success!!!"); ; });
         OnHalfSuccessedFinished.AddListener(value => { Debug.Log($"Win percent = {value}"); ; });
@@ -53,7 +53,7 @@ public class QTEManager : MonoBehaviour
         inputSystemAction = new();
         inputSystemAction.Enable();
         inputSystemAction.Player.QTE.performed += pressedKey => { CheckPressedKey(pressedKey.control); };
-        // inputSystemAction.Player.QTE.performed += pressedKey => { Debug.Log($"pressed key {pressedKey.control}"); };
+        inputSystemAction.Player.QTE.performed += pressedKey => { Debug.Log($"pressed key {pressedKey.control.displayName}"); };
         inputControls = inputSystemAction.Player.QTE.controls;
     }
     private void Start()
@@ -68,6 +68,10 @@ public class QTEManager : MonoBehaviour
 
     private void CheckPressedKey(InputControl pressedKey)
     {
+        foreach (var item in _activeQTEKeys)
+        {
+            item?.CheckKeyPressed(pressedKey);
+        }
         QTEKey key = _activeQTEKeys.Find(x => x.TargetKey == pressedKey);
         key?.PressKey();
     }

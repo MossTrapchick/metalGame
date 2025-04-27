@@ -71,6 +71,7 @@ public class QTEKey : MonoBehaviour
 
     private void UpdateTimer()
     {
+        if (!_isActive) return;
         _timer += Time.deltaTime;
 
         if (_timer >= _timeToPress && _isActive)
@@ -87,6 +88,12 @@ public class QTEKey : MonoBehaviour
         {
             Success();
         }
+    }
+
+    public void CheckKeyPressed(InputControl pressedKey)
+    {
+        if (pressedKey == TargetKey && _isActive)
+            Success();
     }
 
     private void Success()
@@ -111,6 +118,7 @@ public class QTEKey : MonoBehaviour
         // OnSuccessedQTE.RemoveListener(AddPressedKey);
         // OnFailedQTE.RemoveListener(AddMissedKey);
         _QTEManager.ReturnQTEKeyToPool(this);
+        _timer = 0f;
     }
 
     // private void AddPressedKey() => _QTEManager.IncreasePressedKeysCount();
