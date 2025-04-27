@@ -1912,6 +1912,14 @@ PrefabInstance:
       propertyPath: info
       value: 
       objectReference: {fileID: 11400000, guid: 43e34e75ef3f16c41a202a12d82e9725, type: 2}
+    - target: {fileID: 5726693043163984095, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+      propertyPath: effect_1
+      value: 
+      objectReference: {fileID: 1026432132}
+    - target: {fileID: 5726693043163984095, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+      propertyPath: effect_2
+      value: 
+      objectReference: {fileID: 1026432131}
     - target: {fileID: 6038326549861643953, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
       propertyPath: m_Name
       value: Radius
@@ -1924,6 +1932,16 @@ PrefabInstance:
 --- !u!4 &1026432130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2887835175195303270, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+  m_PrefabInstance: {fileID: 1026432129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1026432131 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7309882555898301281, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+  m_PrefabInstance: {fileID: 1026432129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1026432132 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4506963197633164266, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
   m_PrefabInstance: {fileID: 1026432129}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056619466
@@ -3834,6 +3852,14 @@ PrefabInstance:
       propertyPath: info
       value: 
       objectReference: {fileID: 11400000, guid: 87ef04f9f09a728488daa3128c588482, type: 2}
+    - target: {fileID: 5726693043163984095, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+      propertyPath: effect_1
+      value: 
+      objectReference: {fileID: 1957505250}
+    - target: {fileID: 5726693043163984095, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+      propertyPath: effect_2
+      value: 
+      objectReference: {fileID: 1957505249}
     - target: {fileID: 6038326549861643953, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
       propertyPath: m_Name
       value: ConverseSpeed
@@ -3846,6 +3872,16 @@ PrefabInstance:
 --- !u!4 &1957505248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2887835175195303270, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+  m_PrefabInstance: {fileID: 1957505247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1957505249 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7309882555898301281, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+  m_PrefabInstance: {fileID: 1957505247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1957505250 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4506963197633164266, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
   m_PrefabInstance: {fileID: 1957505247}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1965458558
@@ -4074,6 +4110,14 @@ PrefabInstance:
       propertyPath: info
       value: 
       objectReference: {fileID: 11400000, guid: 6d959dfc5fc20114fa04667e38c063c4, type: 2}
+    - target: {fileID: 5726693043163984095, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+      propertyPath: effect_1
+      value: 
+      objectReference: {fileID: 2097236879}
+    - target: {fileID: 5726693043163984095, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+      propertyPath: effect_2
+      value: 
+      objectReference: {fileID: 2097236878}
     - target: {fileID: 6038326549861643953, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
       propertyPath: m_Name
       value: Speedup
@@ -4086,6 +4130,16 @@ PrefabInstance:
 --- !u!4 &2097236877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2887835175195303270, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+  m_PrefabInstance: {fileID: 2097236876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2097236878 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7309882555898301281, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
+  m_PrefabInstance: {fileID: 2097236876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2097236879 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4506963197633164266, guid: ce02e70e095525b44b20c3250f610b55, type: 3}
   m_PrefabInstance: {fileID: 2097236876}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
