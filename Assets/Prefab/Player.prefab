@@ -716,12 +716,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac946e4b7185c148ab6ca3b27fd0a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentConversionSpeed: 0
+  ShowTopMostFoldoutHeaderGroup: 1
   playerColor: {r: 0.5999999, g: 0.012452815, b: 0.012452815, a: 1}
   radius: {fileID: 8107446849143664110}
-  baseRadius: {x: 0, y: 0, z: 0}
-  curentInstrument: 0
-  instruments: []
+  currentInstrument: {fileID: 0}
+  currentConversionSpeed: 0
 --- !u!114 &646536043318140419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959f679bf2720dc419bdf8c7e5e75f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ElementPrefab: {fileID: 0}
+  instruments: []
 --- !u!114 &7134793256388883439
 MonoBehaviour:
   m_ObjectHideFlags: 0
