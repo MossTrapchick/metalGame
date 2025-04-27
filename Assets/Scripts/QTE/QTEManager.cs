@@ -4,11 +4,13 @@ using UnityEngine.Events;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using TMPro;
 
 public class QTEManager : MonoBehaviour
 {
     [SerializeField] private RectTransform QTEParent;
     [SerializeField] private GameObject QTEPrefab;
+    [SerializeField] private TMP_Text WinText;
     [SerializeField] private float startDelay = 1f;
     [SerializeField] private float spawnInterval = 1.5f;
     [SerializeField] private float keyPressTime = 1f;
@@ -38,15 +40,22 @@ public class QTEManager : MonoBehaviour
     private void Awake()
     {
         OnRoundStarted.AddListener(() => { Debug.Log("Round Started"); ; });
+        OnRoundStarted.AddListener(() => { WinText.text = "Round Started"; });
         OnRoundFinished.AddListener(() => { Debug.Log($"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
+        OnRoundFinished.AddListener(() => { Debug.Log(WinText.text = $"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
         OnRoundFinished.AddListener(() => { StartRound(); });
 
         OnFullSuccessedFinished.AddListener(() => { Debug.Log($"Full success!!!"); ; });
+        OnFullSuccessedFinished.AddListener(() => { WinText.text = $"Full success!!!"; ; });
         OnHalfSuccessedFinished.AddListener(value => { Debug.Log($"Win percent = {value}"); ; });
+        OnHalfSuccessedFinished.AddListener(value => { WinText.text = $"Win percent = {value}"; ; });
         OnFailedFinished.AddListener(() => { Debug.Log($"Full fail!!!"); ; });
+        OnFailedFinished.AddListener(() => { WinText.text = $"Full fail!!!"; ; });
 
         OnQTEPassed.AddListener(value => { Debug.Log($"QTE passed {value} times"); ; });
+        OnQTEPassed.AddListener(value => { WinText.text = $"QTE passed {value} times"; ; });
         OnQTEMissed.AddListener(value => { Debug.Log($"QTE missed {value} times"); ; });
+        OnQTEMissed.AddListener(value => { WinText.text = $"QTE missed {value} times"; ; });
 
         PreloadQTEKeys();
 
