@@ -10,16 +10,13 @@ public class UIInstruments : MonoBehaviour
     public static UnityEvent<MusicInstrument> OnSelectInstrument = new();
     private void Start()
     {
+        InputManager.Input.Player.SelectInstrument.performed += Select;
         foreach (var instrument in instruments)
         {
             GameObject obj = Instantiate(ElementPrefab, transform);
             obj.GetComponent<InstumentButton>().Init(instrument);
         }
     }
-    private void OnEnable()
-    {
-        InputManager.Input.Player.SelectInstrument.performed += Select;
-    } 
     private void OnDisable()
     {
         InputManager.Input.Player.SelectInstrument.performed -= Select;
