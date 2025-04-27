@@ -4,7 +4,7 @@ public class Bonus : MonoBehaviour
 {
     public BonusInfo info;
     [SerializeField] ParticleSystem effect_1;
-    [SerializeField] ParticleSystem effect_2;
+
 
     public void SetInfo(BonusInfo bonusInfo)
     {
@@ -20,7 +20,7 @@ public class Bonus : MonoBehaviour
             other.GetComponent<PlayerMovement>().PickupBonus(info);
             Destroy(gameObject);
             effect_1.Play();
-            effect_2.Play();
+
         }
     }
 
