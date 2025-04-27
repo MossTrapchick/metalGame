@@ -4,7 +4,7 @@ using System.Collections;
 using Unity.Netcode;
 
 public class DancerNPC : NetworkBehaviour
-{/*
+{
     [SerializeField] float HoldDelay = 3f;
     [Range(0f, 1f)] float progress;
     Coroutine coroutineTimer;
@@ -21,7 +21,7 @@ public class DancerNPC : NetworkBehaviour
         if (enabled)
         {
             if (coroutineTimer != null) StopCoroutine(coroutineTimer);
-            if (coroutineConverter == default) coroutineConverter = StartCoroutine(converse());
+            if (coroutineConverter == default) coroutineConverter = StartCoroutine(converse(player.currentConversionSpeed, player.playerColor));
         }
         else
         {
@@ -34,16 +34,20 @@ public class DancerNPC : NetworkBehaviour
         if (player != default) return;
         TryGetComponent(out player);
     }
+    private void OnTriggerExit(Collider other)
+    {
+        TogglePlaying(false);
+    }/*
     [Rpc(SendTo.NotMe)]
     void ConvertingRpc(float speed, bool )
     {
         coroutineTimer = StartCoroutine(converse());
-    }
+    }*/
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (coroutineTimer != null) StopCoroutine(coroutineTimer);
     }
-    IEnumerator converse(float currentConversionSpeed, bool isPlaying, )
+    IEnumerator converse(float currentConversionSpeed, Color color)
     {
         float MaxValue = 100, t = 0;
         while (progress < 1)
@@ -51,14 +55,13 @@ public class DancerNPC : NetworkBehaviour
             t += currentConversionSpeed;
             progress = Mathf.InverseLerp(0, MaxValue, t);
             yield return new WaitForFixedUpdate();
-            if (!isPlaying) break;
         }
     }
     IEnumerator HoldTimer(float Delay)
     {
         yield return new WaitForSeconds(Delay);
         player = default;
-    }*/
+    }
 
 /*
 
