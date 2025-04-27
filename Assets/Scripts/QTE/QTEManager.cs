@@ -47,7 +47,7 @@ public class QTEManager : MonoBehaviour
         OnRoundFinished.AddListener(() => { StartRound(); });
 
         OnFullSuccessedFinished.AddListener(() => { Debug.Log($"Full success!!!"); ; });
-        OnFullSuccessedFinished.AddListener(() => { WinText.text = $"Full success!!!"; ; });
+        OnFullSuccessedFinished.AddListener(() => { WinText.text = $"Full success! Go harder!"; ; });
         OnFullSuccessedFinished.AddListener(() => { IncreaseSpeed(); });
         OnHalfSuccessedFinished.AddListener(value => { Debug.Log($"Win percent = {value}"); ; });
         OnHalfSuccessedFinished.AddListener(value => { WinText.text = $"Win percent = {value}"; ; });
