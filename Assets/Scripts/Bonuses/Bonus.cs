@@ -1,15 +1,21 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Bonus : MonoBehaviour
+public class Bonus : NetworkBehaviour
 {
     public BonusInfo info;
     [SerializeField] ParticleSystem effect_1;
-
-
-    public void SetInfo(BonusInfo bonusInfo)
+    private BonusInfo[] bonusArray;
+    
+    [Rpc(SendTo.Everyone)]
+    public void BuffSetInfoRpc(int index)
     {
-        info = bonusInfo;
+        bonusArray = Resources.LoadAll<BonusInfo>("Bonuses/");
+        info = bonusArray[index];
         GetComponent<SpriteRenderer>().sprite = info.sprite;
+        
         Destroy(gameObject, info.lifetimeSec);
     }
 

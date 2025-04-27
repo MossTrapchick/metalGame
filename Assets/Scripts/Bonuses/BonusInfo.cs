@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Bonus", menuName = "ScriptableObject/New bonus")]
-public class BonusInfo : ScriptableObject
+public class BonusInfo : ScriptableObject, INetworkSerializable
 {
     [Header("Not picked up")]
     public string title;
@@ -15,5 +16,15 @@ public class BonusInfo : ScriptableObject
     public enum BonusType
     {
         MoveSpeed, ConversionSpeed, InfluenceRadius
+    }
+    
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+    {
+        serializer.SerializeValue(ref title);
+        // serializer.SerializeValue(ref sprite);
+        serializer.SerializeValue(ref lifetimeSec);
+        serializer.SerializeValue(ref type);
+        serializer.SerializeValue(ref value);
+        serializer.SerializeValue(ref bonusDurationSec);
     }
 }
