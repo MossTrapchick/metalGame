@@ -23,7 +23,7 @@ public class ParallaxEffect : MonoBehaviour
     private void SetNewPosition(float cameraPosition)
     {
         float newPosition = oldPosition + cameraPosition * parallaxFactor;
-        transform.position = new Vector3(newPosition, transform.localPosition.y, transform.localPosition.z);
+        transform.position = new Vector3(newPosition, transform.localPosition.y, transform.position.z);
 
         UpdateOldPosition(cameraPosition);
     }
