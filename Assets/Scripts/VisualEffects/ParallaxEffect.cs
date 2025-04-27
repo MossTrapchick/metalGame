@@ -11,6 +11,7 @@ public class ParallaxEffect : MonoBehaviour
     {
         // spriteSize = GetComponent<SpriteRenderer>().bounds.size.x;
         spriteSize = spriteRenderer.bounds.size.x;
+        zPosition = transform.position.z;
 
         FindAnyObjectByType<CameraMovementTracker>()?.OnCameraChanged.AddListener(SetNewPosition);
     }
@@ -18,7 +19,6 @@ public class ParallaxEffect : MonoBehaviour
     private void Start()
     {
         oldPosition = transform.position.x;
-        zPosition = transform.position.z;
     }
 
     private void SetNewPosition(float cameraPosition)
