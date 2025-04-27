@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2026233473
+  GlobalObjectIdHash: 2296812019
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   HoldDelay: 3
-  mask: {fileID: 0}
+  mask: {fileID: 8950219991211567734}
 --- !u!95 &-9213713396616214045
 Animator:
   serializedVersion: 7
