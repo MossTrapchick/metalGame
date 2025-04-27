@@ -3,52 +3,62 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 using Unity.Multiplayer.Playmode;
+using UnityEngine.Serialization;
 
 public class DancerNPC : MonoBehaviour
 {
-
     public int moveSpeed = 5;
-    public SpriteRenderer colorIndicator;
-    public SpriteRenderer conversionVal;
+    public SpriteRenderer conversionVal, conversionSprite;
     private float maxConversionValSize;
-    
+
     private Rigidbody2D rb;
-    
+    private Color baseColor;
     private Coroutine movingCoroutine;
     private PlayerMovement curPlayer;
     private Instrument curPlayerInstrument;
+    private Animator animator;
 
     public float ConversionValue { get; set; }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        baseColor = conversionSprite.color;
+
         ConversionValue = 0;
         maxConversionValSize = conversionVal.size.x;
+
         conversionVal.size = new Vector2(0, conversionVal.size.y);
-        colorIndicator.color = new Color(colorIndicator.color.r, colorIndicator.color.g, colorIndicator.color.b, ConversionValue);
+        conversionSprite.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
 
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
-    }   
+    }
+
+    private void FixedUpdate()
+    {
+        conversionSprite.sprite = GetComponent<SpriteRenderer>().sprite;
+        conversionSprite.flipX = GetComponent<SpriteRenderer>().flipX;
+
+        animator.SetBool("Walking", Mathf.FloorToInt(rb.linearVelocityX) != 0);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
         if (!other.TryGetComponent(out curPlayerInstrument)) return;
 
         curPlayer = other.GetComponent<PlayerMovement>();
-        colorIndicator.color = new Color(curPlayerInstrument.playerColor.r, curPlayerInstrument.playerColor.g, curPlayerInstrument.playerColor.b, colorIndicator.color.a);
+        conversionSprite.color = new Color(curPlayerInstrument.playerColor.r, curPlayerInstrument.playerColor.g, curPlayerInstrument.playerColor.b, conversionSprite.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
-        
     }
-    
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (!other.TryGetComponent(out curPlayerInstrument)) return;
 
         curPlayer = other.GetComponent<PlayerMovement>();
-        colorIndicator.color = new Color(curPlayerInstrument.playerColor.r, curPlayerInstrument.playerColor.g, curPlayerInstrument.playerColor.b, colorIndicator.color.a);
+        conversionSprite.color = new Color(curPlayerInstrument.playerColor.r, curPlayerInstrument.playerColor.g, curPlayerInstrument.playerColor.b, conversionSprite.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
     }
@@ -74,38 +84,37 @@ public class DancerNPC : MonoBehaviour
 
         if (ConversionValue < maxConversionValSize)
         {
-            ConversionValue += curPlayerInstrument.currentConversionSpeed * 0.1f;
+            ConversionValue += curPlayerInstrument.currentConversionSpeed / 10;
             curPlayer.Score += Mathf.FloorToInt(curPlayerInstrument.currentConversionSpeed);
         }
-        
-        colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayerInstrument.playerColor, ConversionValue);
+
+        conversionSprite.color = Color.Lerp(conversionSprite.color, curPlayerInstrument.playerColor, ConversionValue / 10);
         conversionVal.color = curPlayerInstrument.playerColor;
         conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
-
     }
 
     private void UndoConverse()
     {
         if (ConversionValue > 0.1f)
             ConversionValue -= 0.1f;
-        
-        colorIndicator.color = Color.Lerp(colorIndicator.color, new Color(1, 1, 1, 0), ConversionValue);
-        conversionVal.color = Color.Lerp(conversionVal.color, Color.white, ConversionValue);
+
+        conversionSprite.color = Color.Lerp(conversionSprite.color, baseColor, ConversionValue / 10);
+        conversionVal.color = Color.Lerp(conversionVal.color, baseColor, ConversionValue / 10);
         conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
     }
 
     private void RandomMovement()
     {
-        rb.linearVelocity = new Vector2(Random.Range(-1, 1) < 0 ? -moveSpeed : moveSpeed, rb.linearVelocity.y);
-        // play walk animation
-        
-        Invoke(nameof(MovementPause), Random.Range(2f,11f));
+        float rand = Random.Range(-1, 1);
+        GetComponent<SpriteRenderer>().flipX = rand < 0;
+        rb.linearVelocity = new Vector2(rand < 0 ? -moveSpeed : moveSpeed, rb.linearVelocity.y);
+
+        Invoke(nameof(MovementPause), Random.Range(2f, 11f));
     }
 
     private void MovementPause()
     {
         rb.linearVelocity = Vector2.zero;
-        // play idle animation
-        Invoke(nameof(RandomMovement), Random.Range(1f,6f));
+        Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
     }
 }

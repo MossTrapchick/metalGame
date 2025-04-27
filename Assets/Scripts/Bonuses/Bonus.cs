@@ -13,7 +13,7 @@ public class Bonus : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other is CapsuleCollider2D)
         {
             other.GetComponent<PlayerMovement>().PickupBonus(info);
             Destroy(gameObject);
@@ -22,7 +22,7 @@ public class Bonus : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other is CapsuleCollider2D)
         {
             other.GetComponent<PlayerMovement>().PickupBonus(info);
             Destroy(gameObject);

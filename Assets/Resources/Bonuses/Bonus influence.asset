@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7f534b86bf3fee4e93a40a071a9ca8e, type: 3}
-  m_Name: Bonus converse
+  m_Name: Bonus influence
   m_EditorClassIdentifier: 
-  title: Conversion
-  sprite: {fileID: 0}
+  title: Radius
+  sprite: {fileID: 21300000, guid: c94c8d39ac37b4e498d7b57b99ce9928, type: 3}
   lifetimeSec: 3
-  type: 1
+  type: 2
   value: 2
-  bonusDurationSec: 3
+  bonusDurationSec: 5
