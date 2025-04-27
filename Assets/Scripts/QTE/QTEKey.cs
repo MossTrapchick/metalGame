@@ -7,11 +7,12 @@ public class QTEKey : MonoBehaviour
 {
     [SerializeField] private TMP_Text keyText;
     [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax;
+    [SerializeField] private float canvasOffset = 2f;
 
     public InputControl TargetKey { get; private set; }
 
-    private Mover _Mover;
     private QTEManager _QTEManager;
+    Vector2 _canvasSize;
     private float _timeToPress = 1f;
     private float _timer;
     private bool _isActive = true;
@@ -29,7 +30,7 @@ public class QTEKey : MonoBehaviour
         OnFailedQTE.AddListener(() => { Debug.Log($"Failed QTE {keyText.text}"); });
     }
 
-    public void Initialize(QTEManager qteManager, InputControl key, float pressTime)//, InputSystem_Actions inputSystemAction, ReadOnlyArray<InputControl> inputControls)
+    public void Initialize(QTEManager qteManager, InputControl key, float pressTime, RectTransform QTEParent)//, InputSystem_Actions inputSystemAction, ReadOnlyArray<InputControl> inputControls)
     {
         _QTEManager = qteManager;
 
@@ -40,14 +41,20 @@ public class QTEKey : MonoBehaviour
         _timeToPress = pressTime;
         keyText.text = key.displayName;
 
+        _canvasSize = QTEParent.rect.size;
+
         SpawnKey();
     }
 
     private void SpawnKey()
     {
+
+        float maxX = _canvasSize.x / canvasOffset;
+        float maxY = _canvasSize.y / canvasOffset;
+
         transform.localPosition = new Vector2(
-            Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-            Random.Range(spawnAreaMin.y, spawnAreaMax.y));
+        Random.Range(-maxX, maxX),
+        Random.Range(-maxY, maxY));
 
         _timer = 0f;
         _isActive = true;

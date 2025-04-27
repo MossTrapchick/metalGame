@@ -140,7 +140,7 @@ public class QTEManager : MonoBehaviour
         InputControl randomKey = inputControls[Random.Range(0, inputControls.Count)];
 
         QTEKey newKey = GetQTEKeyFromPool();
-        newKey.Initialize(this, randomKey, keyPressTime);
+        newKey.Initialize(this, randomKey, keyPressTime, QTEParent);
 
         _activeQTEKeys.Add(newKey);
     }
