@@ -18,7 +18,7 @@ public class PlayerMovement : NetworkBehaviour
     private RaycastHit2D[] hits;
     private bool isGrounded = false;
     private float startMoveSpeed;
-    private Instrument ins;
+    private Instrument myTool;
 
     public int Score { get; set; }
 
@@ -29,7 +29,7 @@ public class PlayerMovement : NetworkBehaviour
 
         if (!IsOwner) return;
         FindFirstObjectByType<CinemachineCamera>().Target.TrackingTarget = transform;
-        ins = GetComponent<Instrument>();
+        myTool = GetComponent<Instrument>();
         rb = GetComponent<Rigidbody2D>();
         startMoveSpeed = currentMoveSpeed;
         inputSystemAction = new InputSystem_Actions();
@@ -44,7 +44,7 @@ public class PlayerMovement : NetworkBehaviour
     private void FixedUpdate()
     {
         if (!IsOwner) return;
-        if ((Instrument.Instr)ins.GetCurrentInstrument() == Instrument.Instr.Drums) return;
+        if(MusicInstrument.Type.Drums == myTool.currentInstrument.type) return;
         
         hits = Physics2D.RaycastAll(transform.position + new Vector3(0, 1, 0), Vector2.down, 1);
         isGrounded = hits[^1].collider.CompareTag("Ground");
@@ -68,7 +68,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Jump()
     {
         if (!IsOwner) return;
-        if (!isGrounded || (Instrument.Instr)ins.GetCurrentInstrument() == Instrument.Instr.Drums) return;
+        if (!isGrounded || MusicInstrument.Type.Drums == myTool.currentInstrument.type) return;
         anim.SetTrigger("Jump");
         rb.linearVelocity = Vector2.up * jumpForce;
     }
@@ -84,12 +84,12 @@ public class PlayerMovement : NetworkBehaviour
             }
             case BonusInfo.BonusType.ConversionSpeed:
             {
-                ins.currentConversionSpeed += bonusInfo.value;
+                myTool.currentConversionSpeed += bonusInfo.value;
                 break;
             }
             case BonusInfo.BonusType.InfluenceRadius:
             {
-                ins.radius.transform.localScale *= bonusInfo.value;
+                myTool.radius.transform.localScale *= bonusInfo.value;
                 break;
             }
             default:
@@ -100,10 +100,9 @@ public class PlayerMovement : NetworkBehaviour
 
     private void BonusEnd()
     {
-        int current = ins.GetCurrentInstrument();
         currentMoveSpeed = startMoveSpeed;
-        ins.currentConversionSpeed = ins.instruments[current].conversionSpeed;
-        ins.radius.transform.localScale = ins.baseRadius;
+        myTool.currentConversionSpeed = myTool.currentInstrument.conversionSpeed;
+        myTool.radius.transform.localScale = myTool.currentInstrument.itemRadius;
     }
 
 }

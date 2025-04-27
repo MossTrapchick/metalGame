@@ -1,36 +1,48 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class Instrument : MonoBehaviour
+public class Instrument : NetworkBehaviour
 {
-    public float currentConversionSpeed = 0;
-
     public Color playerColor;
     public SpriteRenderer radius;
-    
-    [HideInInspector]
-    public Vector3 baseRadius;
-    [HideInInspector]
-    public Instr curentInstrument;
-    [HideInInspector]
-    public instrumentsofviolenceagainstmusic[] instruments;
-
-    private int curentId;
-
-    public enum Instr
-    {
-        Guitar,
-        Drums,
-        Bass
-    }
+    public MusicInstrument currentInstrument;
+    public float currentConversionSpeed = 0;
+    public bool isPlaying { get; private set; }
+    Animator anim;
 
     private void Start()
     {
-        instruments = Resources.LoadAll<instrumentsofviolenceagainstmusic>("Instruments/");
+        anim = GetComponent<Animator>();
+        if (!IsOwner) return;
+        UIInstruments.OnSelectInstrument.AddListener(SelectInstrument);
+        QTEManager.OnQTEPassed.AddListener(ctx => TogglePlaying(true));
+        QTEManager.OnQTEMissed.AddListener(ctx => TogglePlaying(false));
+    }
+    void TogglePlaying(bool enabled)
+    {
+        isPlaying = enabled;
+        RoadController.ToggleRoad.Invoke(currentInstrument.type, enabled);
+        anim.SetBool("IsPlaying", isPlaying);
+    }
+    void SelectInstrument(MusicInstrument instrument)
+    {
+        currentInstrument = instrument;
+        SelectRpc(OwnerClientId, instrument);
+    }
+    [Rpc(SendTo.NotMe)]
+    void SelectRpc(ulong id, MusicInstrument instrument)
+    {
+        if (OwnerClientId != id) return; 
+        currentInstrument = instrument;
+    }
+/*
+    private void Start()
+    {
         radius.color = playerColor;
         baseRadius = radius.transform.localScale;
         ChangeInstrument(0);
     }
-    
+
     public void ToggleInstrument(Instr type)
     {
         curentId = instruments[(int)type].Id;
@@ -47,5 +59,5 @@ public class Instrument : MonoBehaviour
         currentConversionSpeed = instruments[id].conversionSpeed;
         radius.transform.localScale = new Vector3(instruments[id].itemRadius, instruments[id].itemRadius, instruments[id].itemRadius);
         curentInstrument = (Instr)id;
-    }
+    }*/
 }

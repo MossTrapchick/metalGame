@@ -1,17 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RoadController : MonoBehaviour
 {
     [SerializeField] float smoothTime;
-    public enum RoadTypes
-    {
-        Guitar,
-        Bass,
-        Drums
-    }
     [SerializeField] AudioSource[] roads;
-    public void ToggleRoad(RoadTypes type, bool enabled)
+    public static UnityEvent<MusicInstrument.Type, bool> ToggleRoad = new();
+    private void Start()
+    {
+        ToggleRoad.AddListener(toggleRoad);
+    }
+    void toggleRoad(MusicInstrument.Type type, bool enabled)
     {
         float target = enabled ? 1f : 0f;
 

@@ -125,6 +125,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectInstrument"",
+                    ""type"": ""Value"",
+                    ""id"": ""1d96fdf4-ba5f-4db1-9588-290dff509755"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -556,6 +565,138 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""TopMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""AD"",
+                    ""id"": ""002f2020-cdf8-4879-b5ad-fa34b5169965"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""739a9f16-a432-4a93-91f7-d44624c3c547"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b28e784f-b038-46b6-83cc-f584ca211e9f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""ffa9598d-4eb3-4526-a4dc-452cda9c5e6a"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""47820357-fdaf-464f-85e1-ddf1de3b8366"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""cb0c2010-fdf8-4480-bfd9-dc0245cad2d3"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""SW"",
+                    ""id"": ""edd45f9d-4324-4dd2-9cce-88bda36eef80"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""586ab16e-6792-417f-adff-c10cd71e8e1c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7ecfcb16-3d52-4aed-a581-1ef05c556b29"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrows2"",
+                    ""id"": ""d8e7117c-b8c0-4d31-9d21-473ec3465bb2"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""6b30ee27-622b-4ba2-9110-8328c3a08081"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""cc1b195b-8b58-4c63-b388-76afb235d2ed"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInstrument"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -1152,6 +1293,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_TopMenuNavigationGitar = m_Player.FindAction("TopMenuNavigationGitar", throwIfNotFound: true);
         m_Player_QTE = m_Player.FindAction("QTE", throwIfNotFound: true);
         m_Player_TopMenu = m_Player.FindAction("TopMenu", throwIfNotFound: true);
+        m_Player_SelectInstrument = m_Player.FindAction("SelectInstrument", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1242,6 +1384,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TopMenuNavigationGitar;
     private readonly InputAction m_Player_QTE;
     private readonly InputAction m_Player_TopMenu;
+    private readonly InputAction m_Player_SelectInstrument;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1257,6 +1400,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @TopMenuNavigationGitar => m_Wrapper.m_Player_TopMenuNavigationGitar;
         public InputAction @QTE => m_Wrapper.m_Player_QTE;
         public InputAction @TopMenu => m_Wrapper.m_Player_TopMenu;
+        public InputAction @SelectInstrument => m_Wrapper.m_Player_SelectInstrument;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1299,6 +1443,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @TopMenu.started += instance.OnTopMenu;
             @TopMenu.performed += instance.OnTopMenu;
             @TopMenu.canceled += instance.OnTopMenu;
+            @SelectInstrument.started += instance.OnSelectInstrument;
+            @SelectInstrument.performed += instance.OnSelectInstrument;
+            @SelectInstrument.canceled += instance.OnSelectInstrument;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1336,6 +1483,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @TopMenu.started -= instance.OnTopMenu;
             @TopMenu.performed -= instance.OnTopMenu;
             @TopMenu.canceled -= instance.OnTopMenu;
+            @SelectInstrument.started -= instance.OnSelectInstrument;
+            @SelectInstrument.performed -= instance.OnSelectInstrument;
+            @SelectInstrument.canceled -= instance.OnSelectInstrument;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1529,6 +1679,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnTopMenuNavigationGitar(InputAction.CallbackContext context);
         void OnQTE(InputAction.CallbackContext context);
         void OnTopMenu(InputAction.CallbackContext context);
+        void OnSelectInstrument(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

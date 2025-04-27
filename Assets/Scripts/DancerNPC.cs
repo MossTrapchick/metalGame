@@ -1,21 +1,75 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using Random = UnityEngine.Random;
-using Unity.Multiplayer.Playmode;
-using UnityEngine.Serialization;
+using Unity.Netcode;
 
-public class DancerNPC : MonoBehaviour
-{
+public class DancerNPC : NetworkBehaviour
+{/*
+    [SerializeField] float HoldDelay = 3f;
+    [Range(0f, 1f)] float progress;
+    Coroutine coroutineTimer;
+    Coroutine coroutineConverter;
+    Instrument player;
+    private void Start()
+    {
+        QTEManager.OnQTEPassed.AddListener(ctx => TogglePlaying(true));
+        QTEManager.OnQTEMissed.AddListener(ctx => TogglePlaying(false));
+    }
+    void TogglePlaying(bool enabled)
+    {
+        if (player == default || player.OwnerClientId != NetworkManager.LocalClientId) return;
+        if (enabled)
+        {
+            if (coroutineTimer != null) StopCoroutine(coroutineTimer);
+            if (coroutineConverter == default) coroutineConverter = StartCoroutine(converse());
+        }
+        else
+        {
+            if(coroutineConverter!= null) StopCoroutine(coroutineConverter);
+            if (coroutineTimer == default) coroutineTimer = StartCoroutine(HoldTimer(HoldDelay));
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (player != default) return;
+        TryGetComponent(out player);
+    }
+    [Rpc(SendTo.NotMe)]
+    void ConvertingRpc(float speed, bool )
+    {
+        coroutineTimer = StartCoroutine(converse());
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (coroutineTimer != null) StopCoroutine(coroutineTimer);
+    }
+    IEnumerator converse(float currentConversionSpeed, bool isPlaying, )
+    {
+        float MaxValue = 100, t = 0;
+        while (progress < 1)
+        {
+            t += currentConversionSpeed;
+            progress = Mathf.InverseLerp(0, MaxValue, t);
+            yield return new WaitForFixedUpdate();
+            if (!isPlaying) break;
+        }
+    }
+    IEnumerator HoldTimer(float Delay)
+    {
+        yield return new WaitForSeconds(Delay);
+        player = default;
+    }*/
+
+/*
+
     public int moveSpeed = 5;
     public SpriteRenderer conversionVal, conversionSprite;
-    private float maxConversionValSize;
 
     private Rigidbody2D rb;
     private Color baseColor;
     private Coroutine movingCoroutine;
     private PlayerMovement curPlayer;
-    private Instrument curPlayerInstrument;
+    private MusicInstrument curPlayerInstrument;
     private Animator animator;
 
     public float ConversionValue { get; set; }
@@ -27,7 +81,6 @@ public class DancerNPC : MonoBehaviour
         baseColor = conversionSprite.color;
 
         ConversionValue = 0;
-        maxConversionValSize = conversionVal.size.x;
 
         conversionVal.size = new Vector2(0, conversionVal.size.y);
         conversionSprite.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
@@ -84,12 +137,12 @@ public class DancerNPC : MonoBehaviour
 
         if (ConversionValue < maxConversionValSize)
         {
-            ConversionValue += curPlayerInstrument.currentConversionSpeed / 10;
-            curPlayer.Score += Mathf.FloorToInt(curPlayerInstrument.currentConversionSpeed);
+            //ConversionValue += curPlayerInstrument.currentConversionSpeed / 10;
+            //curPlayer.Score += Mathf.FloorToInt(curPlayerInstrument.currentConversionSpeed);
         }
 
-        conversionSprite.color = Color.Lerp(conversionSprite.color, curPlayerInstrument.playerColor, ConversionValue / 10);
-        conversionVal.color = curPlayerInstrument.playerColor;
+        //conversionSprite.color = Color.Lerp(conversionSprite.color, curPlayerInstrument.playerColor, ConversionValue / 10);
+        //conversionVal.color = curPlayerInstrument.playerColor;
         conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
     }
 
@@ -116,5 +169,5 @@ public class DancerNPC : MonoBehaviour
     {
         rb.linearVelocity = Vector2.zero;
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
-    }
+    }*/
 }

@@ -21,8 +21,8 @@ public class QTEManager : MonoBehaviour
     public UnityEvent OnRoundStarted;
     public UnityEvent OnRoundFinished;
 
-    public UnityEvent<int> OnQTEPassed;
-    public UnityEvent<int> OnQTEMissed;
+    public static UnityEvent<int> OnQTEPassed = new();
+    public static UnityEvent<int> OnQTEMissed = new();
 
     public UnityEvent OnFullSuccessedFinished;
     public UnityEvent<int> OnHalfSuccessedFinished;

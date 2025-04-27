@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dff0449bc865e3479d5424d294601a0, type: 3}
+  m_Name: Bass
+  m_EditorClassIdentifier: 
+  type: 1
+  itemName: "\u0411\u0430\u0441\u0441"
+  descriptionItem: "\u0431\u0443\u043C \u0431\u0443\u043C \u0431\u0443\u043C"
+  conversionSpeed: 1
+  itemRadius: {x: 0, y: 0, z: 0}
+  itemSprite: {fileID: 21300000, guid: 7c694b142582a8d4ba0d169c2ef78010, type: 3}
+  itemIcon: {fileID: 21300000, guid: 7c694b142582a8d4ba0d169c2ef78010, type: 3}
