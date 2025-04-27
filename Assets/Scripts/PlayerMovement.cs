@@ -46,7 +46,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner) return;
         if ((Instrument.Instr)ins.GetCurrentInstrument() == Instrument.Instr.Drums) return;
         
-        hits = Physics2D.RaycastAll(transform.position, Vector2.down, 0.5f);
+        hits = Physics2D.RaycastAll(transform.position + new Vector3(0, 1, 0), Vector2.down, 1);
         isGrounded = hits[^1].collider.CompareTag("Ground");
 
         bool isWalking = moveDirection.x != 0;
