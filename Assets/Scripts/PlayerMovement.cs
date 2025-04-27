@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerMovement : NetworkBehaviour
         GetComponentInChildren<TMP_Text>().text = player.Name;
 
         if (!IsOwner) return;
+        FindFirstObjectByType<CinemachineCamera>().Target.TrackingTarget = transform;
         ins = GetComponent<Instrument>();
         rb = GetComponent<Rigidbody2D>();
         startMoveSpeed = currentMoveSpeed;
