@@ -70,8 +70,9 @@ public class QTEManager : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        if ((spawnInterval > 1.5f || spawnInterval < 0.15f) && (keyPressTime <= 0.15f || keyPressTime > 1f))
+        if ((spawnInterval > 1.5f || spawnInterval < 0.3f) && (keyPressTime <= 0.8f || keyPressTime > 1f))
         {
+            WinText.text = "YOU DID TOO WELL!! Let's go easy now";
             spawnInterval = 1.5f;
             keyPressTime = 1f;
             return;
