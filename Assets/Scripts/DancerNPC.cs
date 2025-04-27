@@ -6,6 +6,7 @@ using Unity.Netcode;
 public class DancerNPC : NetworkBehaviour
 {
     [SerializeField] float HoldDelay = 3f;
+    [SerializeField] SpriteRenderer mask;
     [Range(0f, 1f)] float progress;
     Coroutine coroutineTimer;
     Coroutine coroutineConverter;
@@ -54,6 +55,7 @@ public class DancerNPC : NetworkBehaviour
         {
             t += currentConversionSpeed;
             progress = Mathf.InverseLerp(0, MaxValue, t);
+            mask.color = Color.Lerp(Color.black, color, progress);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -61,6 +63,7 @@ public class DancerNPC : NetworkBehaviour
     {
         yield return new WaitForSeconds(Delay);
         player = default;
+        mask.color = Color.black;
     }
 
 /*

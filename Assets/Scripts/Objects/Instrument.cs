@@ -12,6 +12,7 @@ public class Instrument : NetworkBehaviour
 
     private void Start()
     {
+        playerColor = Random.ColorHSV();
         anim = GetComponent<Animator>();
         if (!IsOwner) return;
         UIInstruments.OnSelectInstrument.AddListener(SelectInstrument);

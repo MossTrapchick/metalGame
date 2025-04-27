@@ -39,6 +39,7 @@ public class QTEManager : MonoBehaviour
     {
         OnRoundStarted.AddListener(() => { Debug.Log("Round Started"); ; });
         OnRoundFinished.AddListener(() => { Debug.Log($"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
+        OnRoundFinished.AddListener(() => { StartRound() ; });
 
         OnFullSuccessedFinished.AddListener(() => { Debug.Log($"Full success!!!"); ; });
         OnHalfSuccessedFinished.AddListener(value => { Debug.Log($"Win percent = {value}"); ; });
@@ -55,7 +56,10 @@ public class QTEManager : MonoBehaviour
         // inputSystemAction.Player.QTE.performed += pressedKey => { Debug.Log($"pressed key {pressedKey.control}"); };
         inputControls = inputSystemAction.Player.QTE.controls;
     }
-
+    private void Start()
+    {
+        StartRound();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
