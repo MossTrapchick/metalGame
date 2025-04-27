@@ -56,11 +56,11 @@ public class QTEManager : MonoBehaviour
         inputControls = inputSystemAction.Player.QTE.controls;
     }
 
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.G))
-    //         StartRound(roundKeysCount);
-    // }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            StartRound();
+    }
 
     private void CheckPressedKey(InputControl pressedKey)
     {
