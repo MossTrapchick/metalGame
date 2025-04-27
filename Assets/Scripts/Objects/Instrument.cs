@@ -12,6 +12,7 @@ public class Instrument : NetworkBehaviour
 
     private void Start()
     {
+        currentConversionSpeed = currentInstrument.conversionSpeed;
         playerColor = Random.ColorHSV();
         anim = GetComponent<Animator>();
         if (!IsOwner) return;
@@ -26,20 +27,20 @@ public class Instrument : NetworkBehaviour
         if (isPlaying == enabled) return;
         isPlaying = enabled;
         RoadController.ToggleRoad.Invoke(currentInstrument.type, enabled);
-
         anim.SetBool("IsPlaying", isPlaying);
     }
     void SelectInstrument(MusicInstrument instrument)
     {
         currentInstrument = instrument;
+        currentConversionSpeed = instrument.conversionSpeed;
         SelectRpc(OwnerClientId, instrument);
-        Debug.Log(instrument.ToString());
     }
     [Rpc(SendTo.NotMe)]
     void SelectRpc(ulong id, MusicInstrument instrument)
     {
         if (OwnerClientId != id) return; 
         currentInstrument = instrument;
+        currentConversionSpeed = instrument.conversionSpeed;
     }
 /*
     private void Start()
