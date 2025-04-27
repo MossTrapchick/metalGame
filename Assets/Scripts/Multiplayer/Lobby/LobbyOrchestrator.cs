@@ -220,7 +220,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         //Lobby currentLobby = await LobbyService.Instance.GetLobbyAsync(lobbyId);
 
         StartGameClientRpc(_playersInLobby.Values.ToArray());
-        NetworkManager.Singleton.SceneManager.LoadScene("ONLINE", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("NastyaScene", LoadSceneMode.Single);
     }
     [ClientRpc]
     private void StartGameClientRpc(PlayerData[] players)
