@@ -70,7 +70,7 @@ public class QTEManager : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        if ((spawnInterval > 1.5f || spawnInterval < 0.3f) && (keyPressTime <= 0.3f || keyPressTime > 1f))
+        if ((spawnInterval > 1.5f || spawnInterval < 0.15f) && (keyPressTime <= 0.15f || keyPressTime > 1f))
         {
             spawnInterval = 1.5f;
             keyPressTime = 1f;
