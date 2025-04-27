@@ -4,13 +4,15 @@ public class ParallaxEffect : MonoBehaviour
 {
     [Tooltip("0 = not moving; 1 = follows camera")]
     [SerializeField] private float parallaxFactor;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private float oldPosition, spriteSize;
 
     private void Awake()
     {
-        spriteSize = GetComponent<SpriteRenderer>().bounds.size.x;
+        // spriteSize = GetComponent<SpriteRenderer>().bounds.size.x;
+        spriteSize = spriteRenderer.bounds.size.x;
 
-        FindAnyObjectByType<Camera>()?.GetComponent<CameraMovementTracker>()?.OnCameraChanged.AddListener(SetNewPosition);
+        FindAnyObjectByType<CameraMovementTracker>()?.OnCameraChanged.AddListener(SetNewPosition);
     }
 
     private void Start()
