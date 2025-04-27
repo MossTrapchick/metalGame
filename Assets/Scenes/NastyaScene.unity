@@ -2086,6 +2086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instrument: {fileID: 11400000, guid: 8ea0437dceb585649bd0826906a5cbf4, type: 2}
+  icon: {fileID: 0}
 --- !u!114 &1007077878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2655,6 +2656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959f679bf2720dc419bdf8c7e5e75f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ElementPrefab: {fileID: 0}
+  instruments: []
 --- !u!114 &1245271588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4545,6 +4548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instrument: {fileID: 11400000, guid: e27e00d63037a2a4990e35e6eebc8191, type: 2}
+  icon: {fileID: 0}
 --- !u!114 &1913123340
 MonoBehaviour:
   m_ObjectHideFlags: 0
