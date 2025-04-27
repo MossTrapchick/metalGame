@@ -6,7 +6,7 @@ public class GameManager : NetworkBehaviour
 {
     [SerializeField] GameObject prefab, bonusPrefab;
     [SerializeField] private Vector3[] bonusLocations;
-    private BonusInfo[] bonusArray;
+    public BonusInfo[] bonusArray;
     
     private void Start()
     {
@@ -25,7 +25,9 @@ public class GameManager : NetworkBehaviour
     private void SpawnBuffs()
     {
         GameObject buff = Instantiate(bonusPrefab, bonusLocations[Random.Range(0, bonusLocations.Length - 1)], Quaternion.identity);
-        buff.GetComponent<Bonus>().SetInfo(bonusArray[Random.Range(0, bonusArray.Length - 1)]);
         buff.GetComponent<NetworkObject>().Spawn();
+        buff.GetComponent<Bonus>().SetInfo(bonusArray[Random.Range(0, bonusArray.Length - 1)]);
+        
+        Invoke(nameof(SpawnBuffs), Random.Range(3, 6));
     }
 }
