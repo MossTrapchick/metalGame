@@ -719,7 +719,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   playerColor: {r: 0.5999999, g: 0.012452815, b: 0.012452815, a: 1}
   radius: {fileID: 8107446849143664110}
-  currentInstrument: {fileID: 0}
+  currentInstrument: {fileID: 11400000, guid: e27e00d63037a2a4990e35e6eebc8191, type: 2}
   currentConversionSpeed: 0
 --- !u!114 &646536043318140419
 MonoBehaviour:
