@@ -1,7 +1,9 @@
 using System;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject front, side;
@@ -21,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        LobbyOrchestrator.PlayerData player = LobbyOrchestrator.PlayersInCurrentLobby.Find(p => p.id == OwnerClientId);
+        GetComponentInChildren<TMP_Text>().text = player.Name;
+
+        if (!IsOwner) return;
         ins = GetComponent<Instrument>();
         rb = GetComponent<Rigidbody2D>();
         startMoveSpeed = currentMoveSpeed;
@@ -35,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!IsOwner) return;
         if ((Instrument.Instr)ins.GetCurrentInstrument() == Instrument.Instr.Drums) return;
         
         hits = Physics2D.RaycastAll(transform.position, Vector2.down, 0.5f);
@@ -43,22 +50,22 @@ public class PlayerMovement : MonoBehaviour
         bool isWalking = moveDirection.x != 0;
         anim.SetBool("IsWalking", isWalking);
 
-        if (isWalking)
-        {
-            transform.localScale = new Vector3(moveDirection.x < 0 ? 1 : -1, 1, 1);
-            side.SetActive(true);
-            front.SetActive(false);
-        }
-        else
-        {
-            side.SetActive(false);
-            front.SetActive(true);
-        }
+        TestRpc(OwnerClientId, isWalking, moveDirection.x < 0);
+
         rb.linearVelocity = new Vector2(moveDirection.x * currentMoveSpeed, rb.linearVelocity.y);
     }
-
+    [Rpc(SendTo.Everyone)]
+    void TestRpc(ulong id, bool isWalking, bool InvertX)
+    {
+        if (id != OwnerClientId) return;
+        side.SetActive(isWalking);
+        front.SetActive(!isWalking);
+        if(isWalking)
+            side.transform.localScale = new Vector3(InvertX ? 1 : -1, 1, 1);
+    }
     private void Jump()
     {
+        if (!IsOwner) return;
         if (!isGrounded || (Instrument.Instr)ins.GetCurrentInstrument() == Instrument.Instr.Drums) return;
         anim.SetTrigger("Jump");
         rb.linearVelocity = Vector2.up * jumpForce;

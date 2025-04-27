@@ -23,7 +23,7 @@ public class RoadController : MonoBehaviour
     {
         float startVolume = source.volume;
         float t = 0;
-        while (t < time)
+        while (source.volume != target)
         {
             t += Time.deltaTime;
             source.volume = Mathf.InverseLerp(startVolume, target, t);

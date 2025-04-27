@@ -80,14 +80,16 @@ public class LobbyOrchestrator : NetworkBehaviour {
 
     public struct PlayerData:INetworkSerializable
     {
+        public ulong id;
         public string Name;
         public bool IsReady;
-        public PlayerData(string name, bool isReady) { Name = name; IsReady = isReady; }
+        public PlayerData(string name, bool isReady, ulong id) { Name = name; IsReady = isReady; this.id = id; }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
             serializer.SerializeValue(ref Name);
             serializer.SerializeValue(ref IsReady);
+            serializer.SerializeValue(ref id);
         }
     }
 
@@ -96,7 +98,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     public override void OnNetworkSpawn() {
         if (IsServer) {
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
-            var player = new PlayerData(_playerName.text, false);
+            var player = new PlayerData(_playerName.text, false, NetworkManager.LocalClientId);
             _playersInLobby.Add(NetworkManager.Singleton.LocalClientId, player);
             UpdateInterface();
         }
@@ -120,7 +122,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     private void GetDataClientRpc(ulong playerId)
     {
         if (IsServer) return;
-        SendServerPlayerDataServerRpc(playerId, new PlayerData(_playerName.text, false));
+        SendServerPlayerDataServerRpc(playerId, new PlayerData(_playerName.text, false, playerId));
     }
 
     [ServerRpc(RequireOwnership = false)]
