@@ -327,6 +327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  moveSpeed: 5
+  conversionVal: {fileID: 922486978727239203}
   HoldDelay: 3
   mask: {fileID: 8950219991211567734}
 --- !u!95 &-9213713396616214045
