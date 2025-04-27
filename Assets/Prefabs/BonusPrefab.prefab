@@ -9969,9 +9969,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e564bde980bfdf43bbc45a88a3866a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   info: {fileID: 0}
   effect_1: {fileID: 4506963197633164266}
-  effect_2: {fileID: 7309882555898301281}
 --- !u!114 &-3527414140109693952
 MonoBehaviour:
   m_ObjectHideFlags: 0
