@@ -56,11 +56,11 @@ public class QTEManager : MonoBehaviour
         inputControls = inputSystemAction.Player.QTE.controls;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-            StartRound(roundKeysCount);
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.G))
+    //         StartRound(roundKeysCount);
+    // }
 
     private void CheckPressedKey(InputControl pressedKey)
     {
@@ -105,7 +105,7 @@ public class QTEManager : MonoBehaviour
     }
     #endregion
 
-    public void StartRound(int QTEKeysCount)
+    public void StartRound(/*int QTEKeysCount*/)
     {
         if (_qteSpawnRoutine != null)
         {
@@ -113,7 +113,7 @@ public class QTEManager : MonoBehaviour
             StopRound();
             return;
         }
-        _qteSpawnRoutine ??= StartCoroutine(SpawnQTERound(QTEKeysCount));
+        _qteSpawnRoutine ??= StartCoroutine(SpawnQTERound(roundKeysCount));
 
         OnRoundStarted?.Invoke();
     }
