@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dff0449bc865e3479d5424d294601a0, type: 3}
-  m_Name: Gitar
+  m_Name: 0 Guitar
   m_EditorClassIdentifier: 
   Id: 1
   itemName: "\u0411\u0430\u0441-\u0433\u0438\u0442\u0430\u0440\u0430"

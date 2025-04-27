@@ -9,19 +9,14 @@ public class DancerNPC : MonoBehaviour
 
     public int moveSpeed = 5;
     public SpriteRenderer colorIndicator;
-    public GameObject conversionBar;
     public SpriteRenderer conversionVal;
     private float maxConversionValSize;
-    
-
     
     private Rigidbody2D rb;
     
     private Coroutine movingCoroutine;
-    private Instrument curPlayer;
-    Instrument.Instr curentInstrument;
-
-
+    private PlayerMovement curPlayer;
+    private Instrument curPlayerInstrument;
 
     public float ConversionValue { get; set; }
 
@@ -34,18 +29,15 @@ public class DancerNPC : MonoBehaviour
         colorIndicator.color = new Color(colorIndicator.color.r, colorIndicator.color.g, colorIndicator.color.b, ConversionValue);
 
         Invoke(nameof(RandomMovement), Random.Range(1f, 6f));
-
-        
-
     }   
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         
-        if (!other.TryGetComponent(out curPlayer)) return;
+        if (!other.TryGetComponent(out curPlayerInstrument)) return;
 
-        curentInstrument = curPlayer.curentInstrument;
-        colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        curPlayer = other.GetComponent<PlayerMovement>();
+        colorIndicator.color = new Color(curPlayerInstrument.playerColor.r, curPlayerInstrument.playerColor.g, curPlayerInstrument.playerColor.b, colorIndicator.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
         
@@ -53,9 +45,10 @@ public class DancerNPC : MonoBehaviour
     
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!other.TryGetComponent(out curPlayer)) return;
-        curentInstrument = curPlayer.curentInstrument;
-        colorIndicator.color = new Color(curPlayer.playerColor.r, curPlayer.playerColor.g, curPlayer.playerColor.b, colorIndicator.color.a);
+        if (!other.TryGetComponent(out curPlayerInstrument)) return;
+
+        curPlayer = other.GetComponent<PlayerMovement>();
+        colorIndicator.color = new Color(curPlayerInstrument.playerColor.r, curPlayerInstrument.playerColor.g, curPlayerInstrument.playerColor.b, colorIndicator.color.a);
         if (IsInvoking(nameof(UndoConverse))) CancelInvoke(nameof(UndoConverse));
         if (!IsInvoking(nameof(Converse))) InvokeRepeating(nameof(Converse), 1f, 1f);
     }
@@ -63,31 +56,32 @@ public class DancerNPC : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.TryGetComponent<Instrument>(out _)) return;
+        if (curPlayerInstrument != other.GetComponent<Instrument>()) return;
 
-        if (curPlayer == other.GetComponent<Instrument>())
-        {
-            CancelInvoke(nameof(Converse));
-            curPlayer = null;
-            InvokeRepeating(nameof(UndoConverse), 5f, 3f);
-        }
+        CancelInvoke(nameof(Converse));
+        curPlayer = null;
+        curPlayerInstrument = null;
+        InvokeRepeating(nameof(UndoConverse), 5f, 3f);
     }
 
     private void Converse()
     {
-        if (curPlayer == null)
+        if (curPlayerInstrument == null)
         {
             CancelInvoke(nameof(Converse));
             return;
         }
 
-        if (ConversionValue < maxConversionValSize) {
-
-            ConversionValue += curPlayer.curentCoversionSpeed * 0.1f;   
+        if (ConversionValue < maxConversionValSize)
+        {
+            ConversionValue += curPlayerInstrument.currentConversionSpeed * 0.1f;
+            curPlayer.Score += Mathf.FloorToInt(curPlayerInstrument.currentConversionSpeed);
         }
-
-        colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayer.playerColor, ConversionValue);
-        conversionVal.color = curPlayer.playerColor;
+        
+        colorIndicator.color = Color.Lerp(colorIndicator.color, curPlayerInstrument.playerColor, ConversionValue);
+        conversionVal.color = curPlayerInstrument.playerColor;
         conversionVal.size = new Vector2(ConversionValue / maxConversionValSize, conversionVal.size.y);
+
     }
 
     private void UndoConverse()

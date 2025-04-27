@@ -1500,9 +1500,17 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2974982423
       objectReference: {fileID: 0}
+    - target: {fileID: 1329775998790578872, guid: 7259ab937bcb55340b97fbf109a3b861, type: 3}
+      propertyPath: playerColor.a
+      value: 0.62352943
+      objectReference: {fileID: 0}
     - target: {fileID: 2841072523835278304, guid: 7259ab937bcb55340b97fbf109a3b861, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169911560652134439, guid: 7259ab937bcb55340b97fbf109a3b861, type: 3}
+      propertyPath: jumpForce
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

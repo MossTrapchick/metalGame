@@ -1,75 +1,51 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using static RoadController;
 
 public class Instrument : MonoBehaviour
 {
+    public float currentConversionSpeed = 0;
 
-    public float curentCoversionSpeed=0;
     public Color playerColor;
     public SpriteRenderer radius;
-    public SpriteRenderer baseRadius;
+    
+    [HideInInspector]
+    public Vector3 baseRadius;
+    [HideInInspector]
     public Instr curentInstrument;
+    [HideInInspector]
+    public instrumentsofviolenceagainstmusic[] instruments;
 
-    int curentId;
-    [SerializeField] public instrumentsofviolenceagainstmusic[] instruments;
+    private int curentId;
 
     public enum Instr
-        {
-            Guitar,
-            Drums,
-            Bass
-        }
-
-
-    public void ToggleInstrument(Instr type)
     {
-     curentId=instruments[(int)type].Id ;
-        ChageInstrument(curentId);
-        
+        Guitar,
+        Drums,
+        Bass
     }
-
-    public int getCurentInstrument(int i)
-    {
-        i=curentId;
-        return i;
-    }
-
 
     private void Start()
     {
-        baseRadius = radius;
-        ChageInstrument(0);
+        instruments = Resources.LoadAll<instrumentsofviolenceagainstmusic>("Instruments/");
         radius.color = playerColor;
+        baseRadius = radius.transform.localScale;
+        ChangeInstrument(0);
     }
-
-
-
-    private void ChageInstrument(int id)
+    
+    public void ToggleInstrument(Instr type)
     {
-
-            switch (id)
-            {
-                case 0:
-                    curentCoversionSpeed += instruments[0].conversionSpeed;
-                    Debug.Log("Вы выбради Барабанную установку");
-                    radius.transform.localScale = new Vector3(instruments[0].itemRadius, instruments[0].itemRadius, instruments[0].itemRadius);
-                    Debug.Log(radius.transform.localScale);
-                    curentInstrument = Instr.Drums;
-                    break;
-                case 1:
-                    curentCoversionSpeed = instruments[1].conversionSpeed;
-                    Debug.Log("Вы выбради акустическую гитару");
-                    radius.transform.localScale = new Vector3(instruments[1].itemRadius, instruments[1].itemRadius, instruments[1].itemRadius);
-                    Debug.Log(radius.transform.localScale);
-                    curentInstrument = Instr.Guitar;
-                    break;
-
-            }
-        
+        curentId = instruments[(int)type].Id;
+        ChangeInstrument(curentId);
     }
 
+    public int GetCurrentInstrument()
+    {
+        return curentId;
+    }
 
-
+    private void ChangeInstrument(int id)
+    {
+        currentConversionSpeed = instruments[id].conversionSpeed;
+        radius.transform.localScale = new Vector3(instruments[id].itemRadius, instruments[id].itemRadius, instruments[id].itemRadius);
+        curentInstrument = (Instr)id;
+    }
 }
