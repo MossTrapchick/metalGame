@@ -14,6 +14,7 @@ public class QTEManager : MonoBehaviour
     [SerializeField] private float startDelay = 1f;
     [SerializeField] private float spawnInterval = 1.5f;
     [SerializeField] private float keyPressTime = 1f;
+    [SerializeField] private float decreasingSpeedPerRound = 0.15f;
     [SerializeField] private int roundKeysCount = 4;
     [Tooltip("For preload")][SerializeField] private int maxKeysCount = 10;
 
@@ -40,17 +41,18 @@ public class QTEManager : MonoBehaviour
     private void Awake()
     {
         OnRoundStarted.AddListener(() => { Debug.Log("Round Started"); ; });
-        OnRoundStarted.AddListener(() => { WinText.text = "Round Started"; });
+        // OnRoundStarted.AddListener(() => { WinText.text = "Round Started"; });
         OnRoundFinished.AddListener(() => { Debug.Log($"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
-        OnRoundFinished.AddListener(() => { Debug.Log(WinText.text = $"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
+        // OnRoundFinished.AddListener(() => { Debug.Log(WinText.text = $"Round Finished: \n Pressed keys = {pressedKeysCount}; missed keys = {missedKeysCount}"); ; });
         OnRoundFinished.AddListener(() => { StartRound(); });
 
         OnFullSuccessedFinished.AddListener(() => { Debug.Log($"Full success!!!"); ; });
-        OnFullSuccessedFinished.AddListener(() => { WinText.text = $"Full success!!!"; ; });
+        OnFullSuccessedFinished.AddListener(() => { WinText.text = $"Full success! Go harder!"; ; });
+        OnFullSuccessedFinished.AddListener(() => { IncreaseSpeed(); });
         OnHalfSuccessedFinished.AddListener(value => { Debug.Log($"Win percent = {value}"); ; });
         OnHalfSuccessedFinished.AddListener(value => { WinText.text = $"Win percent = {value}"; ; });
         OnFailedFinished.AddListener(() => { Debug.Log($"Full fail!!!"); ; });
-        OnFailedFinished.AddListener(() => { WinText.text = $"Full fail!!!"; ; });
+        OnFailedFinished.AddListener(() => { WinText.text = $"Full fail! Try Again!"; ; });
 
         OnQTEPassed.AddListener(value => { Debug.Log($"QTE passed {value} times"); ; });
         OnQTEPassed.AddListener(value => { WinText.text = $"QTE passed {value} times"; ; });
@@ -65,15 +67,31 @@ public class QTEManager : MonoBehaviour
         inputSystemAction.Player.QTE.performed += pressedKey => { Debug.Log($"pressed key {pressedKey.control.displayName}"); };
         inputControls = inputSystemAction.Player.QTE.controls;
     }
+
+    private void IncreaseSpeed()
+    {
+        if ((spawnInterval > 1.5f || spawnInterval < 0.3f) && (keyPressTime <= 0.8f || keyPressTime > 1f))
+        {
+            WinText.text = "YOU DID TOO WELL!! Let's go easy now";
+            spawnInterval = 1.5f;
+            keyPressTime = 1f;
+            return;
+        }
+
+        spawnInterval -= decreasingSpeedPerRound;
+        keyPressTime -= decreasingSpeedPerRound;
+    }
+
     private void Start()
     {
         StartRound();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-            StartRound();
-    }
+
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.G))
+    //         StartRound();
+    // }
 
     private void CheckPressedKey(InputControl pressedKey)
     {
@@ -81,8 +99,8 @@ public class QTEManager : MonoBehaviour
         {
             item?.CheckKeyPressed(pressedKey);
         }
-        QTEKey key = _activeQTEKeys.Find(x => x.TargetKey == pressedKey);
-        key?.PressKey();
+        // QTEKey key = _activeQTEKeys.Find(x => x.TargetKey == pressedKey);
+        // key?.PressKey();
     }
 
     #region Pool
