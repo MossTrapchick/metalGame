@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxFactor: 0.5
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1504934323}
 --- !u!1 &752975784
 GameObject:
   m_ObjectHideFlags: 0
