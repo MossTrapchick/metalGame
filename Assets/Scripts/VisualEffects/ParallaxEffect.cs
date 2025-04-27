@@ -5,7 +5,7 @@ public class ParallaxEffect : MonoBehaviour
     [Tooltip("0 = not moving; 1 = follows camera")]
     [SerializeField] private float parallaxFactor;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private float oldPosition, spriteSize;
+    private float oldPosition, spriteSize, zPosition;
 
     private void Awake()
     {
@@ -18,12 +18,13 @@ public class ParallaxEffect : MonoBehaviour
     private void Start()
     {
         oldPosition = transform.position.x;
+        zPosition = transform.position.z;
     }
 
     private void SetNewPosition(float cameraPosition)
     {
         float newPosition = oldPosition + cameraPosition * parallaxFactor;
-        transform.position = new Vector3(newPosition, transform.localPosition.y, transform.position.z);
+        transform.position = new Vector3(newPosition, transform.localPosition.y, zPosition);
 
         UpdateOldPosition(cameraPosition);
     }
